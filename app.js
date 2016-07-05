@@ -27,8 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/groups', groups);
-app.use('/topics', topics);
+// app.use('/groups', groups);
+// app.use('/topics', topics);
 
 // back from google with info
 // query database for username
@@ -55,6 +55,8 @@ app.use('/topics', topics);
 // -/topics/delete
 // logout
 //-/logout
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
