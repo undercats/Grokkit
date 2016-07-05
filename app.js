@@ -9,10 +9,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var oauth = require('./routes/oauth');
+var groups = require('./routes/groups');
+var topics = require('./routes/topics');
 
 var app = express();
 
-// view engine setup
+// view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -21,10 +24,39 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/oauth2callback', oauth);
+app.use('/groups', groups);
+app.use('/topics', topics);
+
+// back from google with info
+// query database for username
+// -/users/usercheck
+// if user exists then go to user home page
+// -/users/username
+// if user does not exist then add to database and go to user home page
+// -/users/username
+// view groups
+// -/users/username/groups
+// view topics
+// -/users/username/topics
+// add group
+// -/groups/new
+// add topic
+// -/topics/new
+// edit group
+// -/groups/edit
+// edit topic
+// -/topics/edit
+// delete group
+// -/groups/delete
+// delete topic
+// -/topics/delete
+// logout
+//-/logout
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
