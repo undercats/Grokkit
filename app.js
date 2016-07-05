@@ -24,13 +24,13 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/oauth2callback', oauth);
-app.use('/groups', groups);
-app.use('/topics', topics);
+// app.use('/groups', groups);
+// app.use('/topics', topics);
 
 // back from google with info
 // query database for username
