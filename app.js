@@ -9,12 +9,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var oauth = require('./routes/oauth');
 var groups = require('./routes/groups');
 var topics = require('./routes/topics');
 
 var app = express();
 
-// view engine setup
+// view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/oauth2callback', oauth);
 // app.use('/groups', groups);
 // app.use('/topics', topics);
 
