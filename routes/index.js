@@ -11,4 +11,11 @@ router.get('/', function(req, res, next) {
     });
 });
 
+//dummy route
+router.get('/loggedin', function(req, res, next) {
+
+  res.render('loggedin');
+});
+
+
 module.exports = router;
