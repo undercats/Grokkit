@@ -11,6 +11,11 @@ var knex = require('../db/knex');
 
 // if user exists then go to user home page
 // /username
+router.get('/:username', function(req, res, next){
+  knex('users').where('username', req.params.username).then(function(data){
+    res.send(data[0]);
+  });
+});
 
 // if user does not exist then add to database and go to user home page
 // /username
