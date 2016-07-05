@@ -1,0 +1,25 @@
+back from google with info
+query database for username
+-
+if user exists then go to user home page
+-
+if user does not exist then add to database and go to user home page
+-
+view groups
+-
+view topics
+-
+add group
+-
+add topic
+-
+edit group
+-
+edit topic
+-
+delete group
+-
+delete topic
+-
+logout
+-
