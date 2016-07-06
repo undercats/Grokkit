@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var ejs = require('ejs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
@@ -19,6 +20,12 @@ var topics = require('./routes/topics');
 
 var app = express();
 
+var googleLoginURI = 'https://accounts.google.com/o/oauth2/v2/auth?scope=email&redirect_uri=' + process.env.MAIN_PATH + '/oauth/google/callback&response_type=code&client_id=239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com';
+
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 // view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -33,31 +40,43 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/oauth2callback', oauth);
-// app.use('/groups', groups);
-// app.use('/topics', topics);
 
-//cookie session & passport
-// app.use(cookieSession({
-//     name: 'session',
-//     keys: [process.env['SECRET_KEY']]
-// }));
-app.use(passport.initialize());
-app.use(passport.session());
+passport.serializeUser(function(user, done) {
+    //later this will be where you selectively send to the browser an identifier for your user, like their primary key from the database, or their ID from linkedin
+    done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+    //here is where you will go to the database and get the user each time from it's id, after you set up your db
+    done(null, obj);
+});
 
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "/oauth2callback"
+        callbackURL: "/oauth/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
+        var emailAddress = profile.emails[0].value;
+        var userName = emailAddress.substring(0, emailAddress.indexOf('@'));
+        console.log('userName is: ', userName);
+
         // TODO ADD IN OUR DATABASE CODE HERE THAT DOES A findORCreate-LIKE FUNCTION.
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //   return cb(err, user);
         // });
+
+        return cb(null, profile);
     }
 ));
+
+app.use('/oauth', oauth);
+
+app.use('/users', users);
+
+// app.use('/oauth2callback', oauth);
+// app.use('/groups', groups);
+// app.use('/topics', topics);
+
 
 
 // back from google with info

@@ -1,0 +1,39 @@
+  <div class="comments-wrapper">
+
+    <div class="row nopad">
+      <div class="col-md-12 comments nopad">
+        <form>
+          <label class="pfont">Group Name</label><br />
+          <input typ="text" class="fullsize">
+
+          <label class="pfont">Description</label><br />
+          <input typ="text" class="fullsize">
+
+          <label class="pfont">Topic Title</label><br />
+          <input typ="text" class="fullsize">
+        </form>
+      </div>
+    </div>
+
+
+    <div class="row nopad">
+      <div class="col-md-12 comments nopad">
+        <form>
+          <label>
+            Select Your Group
+            <h5>Select the permissions for your group members:<br />
+              <b><i>None</i></b>  (they are not part of your group)<br />
+              <b><i>User</i></b>  (user accessibilities)<br />
+              <b><i>Leader</i></b>  (give them admin permissions)</h5>
+          </label><br />
+
+          <%- include('nameboxes'); %>
+          <%- include('nameboxes'); %>
+          <%- include('nameboxes'); %>
+          <%- include('nameboxes'); %>
+
+        </form>
+      </div>
+    </div>
+
+  </div>

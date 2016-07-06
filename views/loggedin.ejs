@@ -6,7 +6,7 @@
     <meta name="google-signin-client_id" content="239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta charset="utf-8">
-    <title>Grokkit</title>
+    <title>Grokkit: Welcome!</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -19,7 +19,7 @@
 
 <body>
     <header>
-      <img src="/images/grokkit_logo.png" class="headerlogo">
+
       <div class="username">
         <h2>
           <span>User Name</span>
@@ -34,14 +34,19 @@
 
     <div class="row">
       <div class="col-md-3"></div>
-      <div class="col-md-6 content">
-        <h3>Class Name</h3>
-        <ul>
-          <li><a href="">Topic 1</a></li>
-          <li><a href="">Topic 2</a></li>
-          <li><a href="">Topic 3</a></li>
-        </ul>
+      <div class="col-md-6">
+        <img src="/images/grokkit_logo.png" class="headerlogo nopad">
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 wrapper">
+        <%- include('partials/leadergroup'); %>
+
+        <%- include('partials/usergroup'); %>
+      </div>
+
     </div>
 
     <div class="row">
