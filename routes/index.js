@@ -21,4 +21,9 @@ router.get('/newgroup', function(req, res, next) {
   res.render('newgroup');
 });
 
+//dummy route
+router.get('/rate', function(req, res, next) {
+  res.render('rate');
+});
+
 module.exports = router;
