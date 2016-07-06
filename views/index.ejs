@@ -21,15 +21,15 @@
 <body>
 
     <div class="row">
-      <div class="col-md-12 nopad">
-          <header class="nopad">
-              <div class="col-md-3"></div>
-              <div class="col-md-6">
-                  <img src="/images/grokkit_logo_def.png" class="logo">
-              </div>
+        <div class="col-md-12 nopad">
+            <header class="nopad">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <img src="/images/grokkit_logo_def.png" class="logo">
+                </div>
 
-          </header>
-      </div>
+            </header>
+        </div>
     </div>
 
     <div class="row">
@@ -37,20 +37,10 @@
         <div class="col-md-4 nopad">
 
             <div class="col-md-6">
-                <button class="login">Login</button>
-            </div>
-            <div class="col-md-6">
-                <button class="create">Create</button>
+                <button class="login"><a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email%20profile&state=login&redirect_uri=http://localhost:3000/oauth/google/callback&response_type=code&client_id=239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com">Login with Google</a></button>
             </div>
 
         </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4 nopad">
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      </div>
     </div>
 
     <footer>© 2016 Undercats</footer>

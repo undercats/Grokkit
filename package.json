@@ -10,7 +10,6 @@
     "cookie-parser": "~1.4.3",
     "cookie-session": "^2.0.0-alpha.1",
     "debug": "~2.2.0",
-    "dotenv": "^2.0.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "knex": "^0.11.7",
@@ -20,7 +19,7 @@
     "serve-favicon": "~2.3.0"
   },
   "description": "Grokkit is a Learning Tracker for Instructors",
-  "main": "app.js",
+  "main": "bin/www",
   "devDependencies": {},
   "repository": {
     "type": "git",
