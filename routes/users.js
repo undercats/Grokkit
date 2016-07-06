@@ -35,7 +35,7 @@ router.get('/:username', function(req, res, next) {
                     newData[counter].title = data[i].group_title;
                     newData[counter].description = data[i].group_description;
                     newData[counter].isLeader = data[i].is_leader;
-                    newData[counter].leader_editable_only = data[i].leader_editable_only;
+                    newData[counter].leaderEditableOnly = data[i].leader_editable_only;
                     newData[counter].topics = [];
                     groupCollector.push(data[i].group_id);
                     counter++;
@@ -145,6 +145,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
             next(new Error(err));
         });
 });
+
 router.get('/:username/groups/new', function(req, res, next) {
     var userInfo;
     knex('users').where('username', req.params.username).then(function(data) {
@@ -167,8 +168,55 @@ router.get('/:username/groups/new', function(req, res, next) {
         next(new Error(err));
     });
 });
-// view topic
-// /username/topic
 
+router.get('/:username/groups/:group_id/newtopic', function(req, res, next){
+  var newData;
+  knex('users')
+  .join('users_groups', 'users.id', '=', 'users_groups.user_id')
+  .join('groups', 'groups.id', '=', 'users_groups.group_id')
+  .where('username', req.params.username).where('groups.id', req.params.group_id)
+  .then(function(data) {
+      newData = {
+          username: data[0].username,
+          firstName: data[0].first_name,
+          lastName: data[0].last_name,
+          userImage: data[0].user_image,
+          displayName: data[0].display_name,
+          isLeader: data[0].is_leader,
+          groupId: data[0].group_id,
+          groupTitle: data[0].title,
+          groupDescription: data[0].description,
+          leaderEditableOnly: data[0].leader_editable_only
+      };
+      res.json(newData);
+  }).catch(function(err) {
+      next(new Error(err));
+  });
+});
+
+router.get('/:username/groups/edit/:group_id', function(req, res, next){
+  var newData;
+  knex('users')
+  .join('users_groups', 'users.id', '=', 'users_groups.user_id')
+  .join('groups', 'groups.id', '=', 'users_groups.group_id')
+  .where('username', req.params.username).where('groups.id', req.params.group_id)
+  .then(function(data) {
+      newData = {
+          username: data[0].username,
+          firstName: data[0].first_name,
+          lastName: data[0].last_name,
+          userImage: data[0].user_image,
+          displayName: data[0].display_name,
+          isLeader: data[0].is_leader,
+          groupId: data[0].group_id,
+          groupTitle: data[0].title,
+          groupDescription: data[0].description,
+          leaderEditableOnly: data[0].leader_editable_only
+      };
+      res.json(newData);
+  }).catch(function(err) {
+      next(new Error(err));
+  });
+});
 
 module.exports = router;
