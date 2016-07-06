@@ -16,9 +16,17 @@ console.log('GOT TO /!!!');
 
 //dummy route
 router.get('/loggedin', function(req, res, next) {
-
   res.render('loggedin');
 });
 
+//dummy route
+router.get('/newgroup', function(req, res, next) {
+  res.render('newgroup');
+});
+
+//dummy route
+router.get('/rate', function(req, res, next) {
+  res.render('rate');
+});
 
 module.exports = router;
