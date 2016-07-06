@@ -1,23 +1,23 @@
-<a href="">Topic 1</a>
+<a href=""><%=topic.title%></a>
     <!-- TODO ^^ link here to take user to leader topic view page-->
-  <span><i><b>10/20</b> users have rated</i></span>
-  <span><i>Comments: 3</i></span>
+  <span><i><b><%=topic.ratings.length%></b> user(s) have rated</i></span>
+  <span><i>Comments: <%=topic.commentCount%></i></span>
 
 <div class="comments-wrapper">
 
   <div class="row nopad">
     <div class="col-md-12 comments nopad">
-      <h4>Average Rating: 5</h4>
+      <h4>Average Rating: <%=topic.ratingAverage%></h4>
     </div>
   </div>
 
 
-  <div class="row nopad">
+  <!-- <div class="row nopad">
     <div class="col-md-12 comments nopad">
 
-      <a href="">
+      <a href=""> -->
         <!-- TODO ^^ link here to take user to leader topic view page-->
-        <ul class="comment-list nopad">
+        <!-- <ul class="comment-list nopad">
 
           <li>"This is a comment."
               <span>- user1</span></li>
@@ -33,6 +33,6 @@
         </a>
 
     </div>
-  </div>
+  </div> -->
 
 </div>
