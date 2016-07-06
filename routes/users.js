@@ -21,11 +21,11 @@ router.get('/:username', function(req, res, next) {
         .leftJoin('groks', 'groks.topic_id', '=', 'topics.id')
         .select('users.id as user_id', 'username', 'user_image', 'is_leader', 'groups.id as group_id', 'groups.title as group_title', 'groups.description as group_description', 'topics.id as topic_id', 'topics.title as topic_title', 'topics.description as topic_description', 'topics.created_at as topic_created_at', 'is_old', 'groks.rating', 'groks.comment', 'groks.created_at as grok_created_at', 'leader_editable_only', 'display_name', 'first_name', 'last_name')
         .where('users.username', req.params.username).orderBy('group_id').orderBy('topic_id').then(function(data) {
-          userInfo.username = data[0].username;
-          userInfo.userImage = data[0].user_image;
-          userInfo.firstName = data[0].first_name;
-          userInfo.lastName = data[0].last_name;
-          userInfo.displayName = data[0].display_name;
+            userInfo.username = data[0].username;
+            userInfo.userImage = data[0].user_image;
+            userInfo.firstName = data[0].first_name;
+            userInfo.lastName = data[0].last_name;
+            userInfo.displayName = data[0].display_name;
             var groupCollector = [];
             var counter = 0;
             var counter2;
@@ -72,14 +72,14 @@ router.get('/:username', function(req, res, next) {
 
         })
         .then(function() {
-          var allData ={
-            userInfo: userInfo,
-            newData: newData
-          };
+            var allData = {
+                userInfo: userInfo,
+                newData: newData
+            };
             res.json(allData);
-        }).catch(function(err){
-    next(new Error(err));
-  });
+        }).catch(function(err) {
+            next(new Error(err));
+        });
 });
 
 // if user does not exist then add to database and go to user home page
@@ -141,11 +141,32 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                     });
             }
 
-        }).catch(function(err){
-    next(new Error(err));
-  });
+        }).catch(function(err) {
+            next(new Error(err));
+        });
 });
-
+router.get('/:username/groups/new', function(req, res, next) {
+    var userInfo;
+    knex('users').where('username', req.params.username).then(function(data) {
+        userInfo = {
+            username: data[0].username,
+            firstName: data[0].first_name,
+            lastName: data[0].last_name,
+            userImage: data[0].user_image,
+            displayName: data[0].display_name
+        };
+    }).then(function() {
+        knex('users').whereNot('username', req.params.username).then(function(data) {
+            var newData = {
+                userInfo: userInfo,
+                userList: data
+            };
+            res.json(newData);
+        });
+    }).catch(function(err) {
+        next(new Error(err));
+    });
+});
 // view topic
 // /username/topic
 
