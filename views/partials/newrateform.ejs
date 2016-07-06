@@ -1,39 +1,99 @@
   <div class="comments-wrapper">
 
     <div class="row nopad">
-      <div class="col-md-12 comments nopad">
-        <form>
-          <label class="pfont">Group Name</label><br />
-          <input typ="text" class="fullsize">
 
-          <label class="pfont">Description</label><br />
-          <input typ="text" class="fullsize">
+        <div class="col-md-12 comments nopad">
+          <p>This is a description of this particular group. It is a lovely group. Believe in your dreams. Don't do drugs. Send your mother some flowers. She deserves it. This is some more descriptive text. Isn't it lovely? I'm like Hemingway with my beautiful words of awesomeness.</p>
+        </div>
 
-          <label class="pfont">Topic Title</label><br />
-          <input typ="text" class="fullsize">
-        </form>
-      </div>
     </div>
 
+    <div class="row nopad">
+      <div class="col-md-12 comments nopad">
+
+        <div class="names">
+
+          <radiogroup>
+
+            <label for="nocheckbox" class="pfont checks">Unrated</label>
+            <input type="radio" id="nocheckbox" name="rating" value="" checked="checked"><br />
+
+        </radiogroup>
+
+      </div><br />
+
+      <div id="rate">
+        <p id="select">Select the number that corresponds to your understanding of this topic:<br />
+           <b>0</b> is the lowest, <b>10</b> is the highest level of understanding.</p>
+        <radiogroup>
+
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="0"><br />
+            <p>0</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="1"><br />
+            <p>1</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="2"><br />
+            <p>2</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="3"><br />
+            <p>3</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="4"><br />
+            <p>4</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="5"><br />
+            <p>5</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="6"><br />
+            <p>6</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="7"><br />
+            <p>7</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="8"><br />
+            <p>8</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="9"><br />
+            <p>9</p>
+          </div>
+          <div class="col-md-1">
+            <input type="radio" class="nums" name="rating" value="10"><br />
+            <p>10</p>
+          </div>
+
+        </radiogroup>
+
+      </div>
+    </div>
 
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
         <form>
-          <label>
-            Select Your Group
-            <h5>Select the permissions for your group members:<br />
-              <b><i>None</i></b>  (they are not part of your group)<br />
-              <b><i>User</i></b>  (user accessibilities)<br />
-              <b><i>Leader</i></b>  (give them admin permissions)</h5>
-          </label><br />
-
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-
+          <label>Comment</label><br />
+          <input type="text" value="(Optional)">
+          <p id="alert"><b><i>** Your name will be visible to your Group Leader **</i></b></p>
         </form>
       </div>
     </div>
 
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <button class="submit">Update</button>
+    <!-- TODO ^^ validate the form -->
+  </div>
+</div>
