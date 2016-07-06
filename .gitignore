@@ -2,6 +2,7 @@
 secrets
 client_id.json
 secrets.md
+.env
 
 
 # Logs

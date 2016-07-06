@@ -2,8 +2,8 @@ INSERT INTO users (username, email, first_name, last_name) VALUES
 ('Slam', 'slamcooksey@gmail.com', 'Samuel', 'Cooksey'),
 ('Gabe-o-Matic', 'gamethexton@gmail.com', 'Gabe', 'Thexton'),
 ('Moris-Less', 'jmorris@gmail.com', 'Jessica', 'Morris'),
-('Iron-Man', 'Tony', 'Stark', 'Tstark@starkmail.com'),
-('Captain-America', 'Steven', 'Rogers', 'SteveRogers@1940s.org');
+('Iron-Man', 'Tstark@starkmail.com', 'Tony', 'Stark'),
+('Captain-America', 'SteveRogers@1940s.org', 'Steven', 'Rogers');
 INSERT INTO groups (title, description, leader_editable_only) VALUES
 ('Sam''s Cooking Class', 'Learn how to make all the finest quizine, from Ramen to Popcorn. We may even make quesadillas!', false),
 ('The Gabe Thexton Apple Museum Training Program', 'Be the best GTAM tour guides you can be. After this course you''ll be able to answer any question they throw at you', false ),
@@ -24,3 +24,28 @@ INSERT INTO users_groups (user_id, group_id, is_leader) VALUES
 (5, 1, false),
 (5, 2, false),
 (5, 3, false);
+INSERT INTO topics (group_id, title, description, is_old) VALUES
+(1, 'Heating water for Ramen', 'Turn it to hot and wait', false),
+(1, 'Waiting the right amount of time for microwave popcorn', 'about 1-2 seconds between pops', false),
+(2, 'Greeting the guest', 'say ''Hello!''', false),
+(2, 'Saying goodbye to the guest', 'say ''Goodbye!''', false),
+(3, 'Don''t fall', 'stay on top of the horse', false),
+(3, 'Be nice to your horse', 'The horse is your friend! Treat it that way!', false);
+INSERT INTO groks (user_id, topic_id, rating, comment) VALUES
+(1, 3, 3, 'I don''t get it'),
+(1, 5, 5, null),
+(2, 2, 7, 'I get it!'),
+(2, 5, 10, null),
+(3, 2, 1, null),
+(3, 3, 2, null),
+(3, 4, 3, 'I kinda get it...'),
+(4, 2, 6, null),
+(4, 3, 7, 'Iron Man!'),
+(4, 5, 9, 'I''m steve!'),
+(5, 2, 0, null),
+(5, 3, 1, null),
+(5, 4, 2, 'America!'),
+(1, 6, 4, null),
+(2, 6, 5, 'I hate horses'),
+(4, 6, 7, 'I love horses'),
+(5, 6, 8, 'America!');
