@@ -1,9 +1,9 @@
-INSERT INTO users (username, email, first_name, last_name) VALUES
-('Slam', 'slamcooksey@gmail.com', 'Samuel', 'Cooksey'),
-('Gabe-o-Matic', 'gamethexton@gmail.com', 'Gabe', 'Thexton'),
-('Moris-Less', 'jmorris@gmail.com', 'Jessica', 'Morris'),
-('Iron-Man', 'Tstark@starkmail.com', 'Tony', 'Stark'),
-('Captain-America', 'SteveRogers@1940s.org', 'Steven', 'Rogers');
+INSERT INTO users (username, email, first_name, last_name, display_name) VALUES
+('Slam', 'slamcooksey@gmail.com', 'Samuel', 'Cooksey', 'Sam Cooksey'),
+('Gabe-o-Matic', 'gamethexton@gmail.com', 'Gabe', 'Thexton', 'Gabe Thexton'),
+('Moris-Less', 'jmorris@gmail.com', 'Jessica', 'Morris', 'Jess Morris'),
+('Iron-Man', 'Tstark@starkmail.com', 'Tony', 'Stark', 'Tony Stark'),
+('Captain-America', 'SteveRogers@1940s.org', 'Steven', 'Rogers', 'Captain America');
 INSERT INTO groups (title, description, leader_editable_only) VALUES
 ('Sam''s Cooking Class', 'Learn how to make all the finest quizine, from Ramen to Popcorn. We may even make quesadillas!', false),
 ('The Gabe Thexton Apple Museum Training Program', 'Be the best GTAM tour guides you can be. After this course you''ll be able to answer any question they throw at you', false ),
