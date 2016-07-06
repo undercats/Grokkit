@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var ejs = require('ejs');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
@@ -18,6 +19,8 @@ var groups = require('./routes/groups');
 var topics = require('./routes/topics');
 
 var app = express();
+
+var googleLoginURI = 'https://accounts.google.com/o/oauth2/v2/auth?scope=email&redirect_uri=' + process.env.MAIN_PATH + '/oauth/google/callback&response_type=code&client_id=239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com';
 
 //initialize passport
 app.use(passport.initialize());
@@ -54,9 +57,12 @@ passport.use(new GoogleStrategy({
         callbackURL: "/oauth/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
+        var emailAddress = profile.emails[0].value;
+        var userName = emailAddress.substring(0, emailAddress.indexOf('@'));
+        console.log('userName is: ', userName);
+
         // TODO ADD IN OUR DATABASE CODE HERE THAT DOES A findORCreate-LIKE FUNCTION.
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        console.log(profile);
         // });
 
         return cb(null, profile);
