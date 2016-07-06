@@ -11,7 +11,6 @@ router.get('/google/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     console.log('SESSION IS', req.session);
-    console.log('SESSION EMAIL IS', req.session.emails);
     res.redirect('/');
     //temp res.send for
     // res.send('OAUTH SIGNIN WORKED!')
