@@ -20,7 +20,7 @@
     "serve-favicon": "~2.3.0"
   },
   "description": "Grokkit is a Learning Tracker for Instructors",
-  "main": "app.js",
+  "main": "./bin/www",
   "devDependencies": {},
   "repository": {
     "type": "git",
