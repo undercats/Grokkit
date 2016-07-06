@@ -1,5 +1,5 @@
 {
-  "name": "Grokkit",
+  "name": "grokkit",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,11 +8,28 @@
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
+    "cookie-session": "^2.0.0-alpha.1",
     "debug": "~2.2.0",
+    "dotenv": "^2.0.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "knex": "^0.11.7",
     "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-google-oauth20": "^1.0.0",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "description": "Grokkit is a Learning Tracker for Instructors",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/undercats/Grokkit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/undercats/Grokkit/issues"
+  },
+  "homepage": "https://github.com/undercats/Grokkit#readme"
 }

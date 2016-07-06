@@ -3,20 +3,23 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-    onSignIn(googleUser);
 
-  res.render('index');
+
+router.get('/', function(req, res, next) {
+
+    console.log(req);
+
 });
 
 
-function onSignIn(googleUser) {
-var profile = googleUser.getBasicProfile();
-console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-console.log('Name: ' + profile.getName());
-console.log('Image URL: ' + profile.getImageUrl());
-console.log('Email: ' + profile.getEmail());
+function saveLocal() {
+    var queryStartLocation = (window.location.href.indexOf('?'));
+    var input = window.location.href.slice(queryStartLocation + 1).split('&');
+    console.log(input);
+    for (var i = 0; i < input.length; i++) {
+        input[i] = input[i].split('=');
+        localStorage.setItem(input[i][0], input[i][1]);
+    }
 }
 
 
