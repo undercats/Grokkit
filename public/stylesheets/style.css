@@ -29,7 +29,7 @@ p {
   padding-right: 0;
 }
 
-button {
+.login, .create {
   color: rgb(232, 232, 216);
   font-family: 'Bangers', fantasy;
   font-size: 3em;
@@ -41,7 +41,7 @@ button {
   height: 2em;
 }
 
-button:focus {
+.login, .create:focus {
   outline: none;
 }
 
@@ -51,8 +51,10 @@ button:hover {
 }
 
 footer {
-  text-align: center;
-  position: absolute;
+  text-align: right;
+  margin-top: 5em;
+  padding-right: 2em;
+  position: fixed;
   bottom: 0.5em;
   width: 100%;
   height: 1em;
@@ -61,9 +63,10 @@ footer {
 }
 
 .headerlogo {
-  margin-top: 2em;
+  width: 50%;
+  margin-top: 4em;
+  padding-left: 2em;
   margin-left: 2em;
-  height: 6em;
 }
 
 h2 {
@@ -88,7 +91,7 @@ h2 {
 }
 
 .content {
-  margin-top: 10em;
+  margin-top: 2em;
   background-color: rgb(134, 38, 23);
   border-radius: 1em;
 }
@@ -108,6 +111,11 @@ a:hover {
   text-decoration: none;
 }
 
+.nopad li {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 li {
   color: rgb(205, 200, 188);
   list-style-type: none;
@@ -121,12 +129,124 @@ li {
 }
 
 .options li {
-  margin-top: 2em;
+  margin-top: 1em;
   float: left;
 }
 
 h2 p {
   font-size: 0.5em;
   text-align: right;
+}
 
+span {
+  color: rgb(131, 168, 207);
+  padding-left: 5em;
+  font-size: .75em;
+}
+
+.comments {
+  margin-top: 0.5em;
+  background-color: rgb(205, 200, 188);
+  border-radius: 0.5em;
+}
+
+.comment-list {
+  margin-top: 0.5em;
+  font-size: 0.4em;
+  margin-bottom: 0.5em;
+}
+
+.comment-list li {
+  color: rgb(45, 45, 43);
+}
+
+.comment-list span {
+  color: rgb(45, 45, 43);
+  padding-left: 1em;
+}
+
+.comments h4 {
+  font-family: 'Bangers', fantasy;
+  font-size: 1em;
+  margin-left: 1em;
+  color: rgb(134, 38, 23)
+}
+
+.comments-wrapper {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.comments p {
+  font-size: 0.7em;
+  color: rgb(45, 45, 43);
+  text-align: left;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-top: 0.5em;
+}
+
+label {
+  margin-top: 0.25em;
+  font-family: 'Bangers', fantasy;
+  font-size: 1em;
+  margin-left: 1em;
+  color: rgb(134, 38, 23);
+}
+
+input {
+  border-radius: 0.25em;
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+  width: 80%;
+}
+
+.submit {
+  color: rgb(131, 168, 207);
+  border-radius: 0.25em;
+  margin-left: 1em;
+  background-color: rgb(45, 45, 43);
+  border:none;
+}
+
+#alert {
+  margin-top: -1em;
+  color: rgb(134, 38, 23);
+  margin-left: 1em;
+}
+
+.fullsize {
+  width: 93%;
+}
+
+.pfont {
+  font-family: 'BenchNine', sans-serif;
+}
+
+h5 {
+  font-family: 'BenchNine', sans-serif;
+  font-size: 1em;
+}
+
+.names {
+  background-color: rgb(255, 255, 255);
+  width: 20%;
+  border-radius: 0.25em;
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+  display: inline-block;
+}
+
+.names label {
+  margin-left: 0.5em;
+}
+
+.names input {
+  font-size: 2em;
+  width: 30%;
+  height: 0.5em;
+}
+
+.checks {
+  margin:0;
 }
