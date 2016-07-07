@@ -108,7 +108,7 @@ h2 {
 h3 {
   color: rgb(205, 200, 188);
   font-family: 'Bangers', fantasy;
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 a {
@@ -324,4 +324,45 @@ span.newgroup {
 
 .comments p {
   margin-left: 1em;
+}
+
+.leadertopic {
+  padding-top: 0.5em;
+  padding-bottom: 0.25em;
+}
+
+.leadertopic a{
+  font-family: 'Bangers', fantasy;
+  padding-left: 1em;
+  color: rgb(134, 38, 23);
+}
+
+.leadertopic span {
+  padding: 1.25em;
+  color: rgb(39, 85, 115);
+}
+
+.leadertopic h4 {
+  font-family: 'BenchNine', sans-serif;
+  margin-top: 0.5em;
+}
+
+.usertopic a {
+  font-family: 'Bangers', fantasy;
+  padding-left: 1em;
+  color: rgb(134, 38, 23);
+}
+
+#yourrating {
+  color: rgb(39, 85, 115);
+}
+
+.delete {
+  width: 48%;
+  float: right;
+}
+
+.edit {
+  float: left;
+  width: 48%;
 }

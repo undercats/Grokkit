@@ -1,12 +1,13 @@
-<a href=""><%=topic.title%></a>
-    <!-- TODO ^^ link here to take user to leader topic view page-->
-  <span><i><b><%=topic.ratings.length%></b> user(s) have rated</i></span>
-  <span><i>Comments: <%=topic.commentCount%></i></span>
 
 <div class="comments-wrapper">
 
   <div class="row nopad">
-    <div class="col-md-12 comments nopad">
+    <div class="col-md-12 comments nopad leadertopic">
+      <a href=""><%=topic.title%></a><br />
+          <!-- TODO ^^ link here to take user to leader topic view page-->
+        <span><i><b><%=topic.ratings.length%></b> user(s) have rated</i></span>
+        <span><i>Comments: <%=topic.commentCount%></i></span>
+
       <h4>Average Rating: <%=topic.ratingAverage%></h4>
     </div>
   </div>
