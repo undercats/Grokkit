@@ -16,8 +16,6 @@ require('dotenv').config();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauth = require('./routes/oauth');
-var groups = require('./routes/groups');
-var topics = require('./routes/topics');
 
 var app = express();
 

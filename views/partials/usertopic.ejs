@@ -1,14 +1,12 @@
-<a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>"><%=topic.title%></a>
-    <!-- TODO ^^ link here to take user to user topic view page aka rate.ejs-->
-  <span><i>Your rating: <b></b></i></span>
-  <span><i><a href="">Rate this topic</a></i></span>
 
   <div class="comments-wrapper">
 
     <div class="row nopad">
-      <a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>">
-          <!-- TODO ^^ link here to take user to user topic view page aka rate.ejs-->
-        <div class="col-md-12 comments nopad">
+        <div class="col-md-12 comments nopad usertopic">
+          <a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>"><%=topic.title%></a>
+              <!-- TODO ^^ link here to take user to user topic view page aka rate.ejs-->
+            <span id="yourrating"><i>Your rating: <b></b></i></span>
+            <span><i><a href="">Rate this topic</a></i></span>
           <p><%=topic.description%></p>
         </div>
       </a>

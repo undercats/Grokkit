@@ -48,7 +48,11 @@
         <div class="col-md-6 wrapper">
 
             <h3 class="newgroup"><a href="/users/<%=userInfo.userName%>/groups/new">+ New Group</a></h3>
-            <!-- TODO ^^ link to newgroup.ejs -->
+            <%if(newData.length ===0){%>
+              <p>SORRY YOU GOT NO GROUPS</p>
+            <%}else{%>
+
+
             <%newData.forEach(function(group){%>
 
               <%if(group.isLeader){%>
@@ -61,6 +65,7 @@
 
               <%}%>
             <%})%>
+            <%}%>
         </div>
 
     </div>
