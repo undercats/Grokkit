@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth20');
+var methodOverride = require("method-override");
 require('dotenv').config();
 
 var routes = require('./routes/index');
@@ -33,7 +34,7 @@ app.use(cookieSession({
         process.env.KEY_THREE
     ]
 }));
-
+app.use(methodOverride("_method"));
 // view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
