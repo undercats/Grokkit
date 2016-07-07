@@ -308,4 +308,9 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
         });
 });
 
+router.get('/logout', function(req, res, next) {
+    req.session = null;
+    res.redirect('/');
+});
+
 module.exports = router;
