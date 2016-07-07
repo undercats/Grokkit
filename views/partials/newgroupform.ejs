@@ -2,7 +2,11 @@
 
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
+        <%if(userInfo.editType === "edit"){%>
+          <form method = 'post' action = '/users/<%=userInfo.username%>/groups/edit/<%=userInfo.groupId%>'>
+        <%}else{%>
         <form method = 'post' action = '/users/<%=userInfo.username%>/groups/new'>
+        <%}%>
           <input type = "text" name = "userId" value = "<%=userInfo.userId%>" style = "display: none;"/>
 
           <%if(userInfo.editType === 'edit'){%>
@@ -28,7 +32,7 @@
               <radiogroup>
 
               <%if(userInfo.editType === 'edit' && !userInfo.leaderEditableOnly){%>
-                <input type="radio" id="nocheckbox" name="permissions" value="leader" name =  >
+                <input type="radio" id="nocheckbox" name="permissions" value="leader">
                 <label for="nocheckbox" class="pfont checks">Leaders</label><br />
 
                 <input type="radio" id="ucheckbox" name="permissions" checked="checked" value = "user">
@@ -75,7 +79,13 @@
   <div class="row nopad">
     <div class="col-md-4"></div>
     <div class="col-md-4 nopad">
-      <button type = "submit" class="submit nopad">Create</button>
+      <button type = "submit" class="submit nopad">
+        <%if(userInfo.editType === "edit"){%>
+          Update
+        <%}else{%>
+          Create
+        <%}%>   
+      </button>
       <!-- TODO ^^ validate the form -->
       </form>
     </div>
