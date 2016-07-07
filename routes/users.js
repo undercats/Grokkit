@@ -232,13 +232,25 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next){
       };
 
   }).then(function(){
-    knex('users_groups')
-    .join('users', 'users_groups.user_id', '=', 'users.id')
-    .where('users_groups.group_id', req.params.group_id)
-    .orderBy('username')
-    .then(function(data){
+    knex('users')
+    .orderBy('username').then(function(data){
       newData.userList = data;
-      res.render('newgroup', newData);
+      knex('users_groups')
+      .where('users_groups.group_id', req.params.group_id).then(function(data){
+        for(var i = 0; i < newData.userList.length; i++){
+          newData.userList[i].user_id = newData.userList[i].id;
+          console.log(newData.userList[i]);
+          newData.userList[i].is_leader = undefined;
+          for(var j = 0; j < data.length; j++){
+            if(newData.userList[i].id === data[j].user_id){
+              newData.userList[i].is_leader = data[j].is_leader;
+            }
+          }
+        }
+        console.log(data);
+        console.log(newData);
+        res.render('newgroup', newData);
+      });
     })
   }).catch(function(err) {
       next(new Error(err));
@@ -283,6 +295,41 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next){
   }).catch(function(err) {
       next(new Error(err));
   });
+});
+
+router.post('/:username/groups/edit/:group_id', function(req, res, next){
+  var leaderEditableOnly = true;
+  if(req.body.permissions === 'user'){
+    leaderEditableOnly = false;
+  }
+  knex('groups').where('id', req.params.group_id).update({title: req.body.title, description: req.body.description, leader_editable_only: leaderEditableOnly}).returning('id').then(function(data){
+    var userArray =[];
+    var deleteArray =[];
+    var wrongArray = ['title', 'permissions', 'description', 'userId'];
+
+    for(var key in req.body){
+      var isLeader = false;
+      if(wrongArray.indexOf(key) === -1){
+        if(req.body[key] === 'leader'){
+          isLeader = true;
+        }
+        deleteArray.push(Number(key));
+        if(req.body[key] !== 'none'){
+          userArray.push({user_id: Number(key), group_id: Number(data[0]), is_leader: isLeader});
+        }
+
+      }
+    }
+    knex('users_groups').whereIn('user_id', deleteArray).where('group_id', req.params.group_id).del()
+    .then(function(){
+      knex('users_groups').insert(userArray).then(function(){
+
+      });
+    })
+      .then(function(){
+        res.redirect('/users/' + req.params.username);
+      });
+});
 });
 
 module.exports = router;
