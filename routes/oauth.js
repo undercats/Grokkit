@@ -9,6 +9,7 @@ var passport = require('passport');
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
+      console.log('did i make it here');
     // Successful authentication, redirect home.
     // console.log('SESSION IS', req.session);
     var currentUser = req.session.passport.user.username;
