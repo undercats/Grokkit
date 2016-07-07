@@ -16,8 +16,6 @@ require('dotenv').config();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauth = require('./routes/oauth');
-var groups = require('./routes/groups');
-var topics = require('./routes/topics');
 
 var app = express();
 
@@ -26,6 +24,16 @@ var googleLoginURI = 'https://accounts.google.com/o/oauth2/v2/auth?scope=email&r
 //initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+//initialize cookie session
+app.use(cookieSession({
+    name: 'Session',
+    keys: [
+        process.env.KEY_ONE,
+        process.env.KEY_TWO,
+        process.env.KEY_THREE
+    ]
+}));
 
 // view engine
 app.set('views', path.join(__dirname, 'views'));
