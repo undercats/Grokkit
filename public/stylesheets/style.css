@@ -366,3 +366,22 @@ span.newgroup {
   float: left;
   width: 48%;
 }
+
+.nogroups {
+  background-color: rgb(45, 45, 43);
+  color: rgb(131, 168, 207);
+  border: none;
+  font-size: 2em;
+  border-radius: 1em;
+  font-family: 'BenchNine', sans-serif;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+#nogroups {
+  text-align: center;
+}
