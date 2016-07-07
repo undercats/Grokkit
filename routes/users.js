@@ -33,6 +33,7 @@ router.get('/:username', function(req, res, next) {
                 if (groupCollector.indexOf(data[i].group_id) === -1) {
                     newData[counter] = {};
                     newData[counter].title = data[i].group_title;
+
                     newData[counter].description = data[i].group_description;
                     newData[counter].isLeader = data[i].is_leader;
                     newData[counter].leaderEditableOnly = data[i].leader_editable_only;
@@ -41,9 +42,9 @@ router.get('/:username', function(req, res, next) {
                     counter++;
                     counter2 = 0;
                 }
-                if (newData[counter - 1].topics.length === 0 || newData[counter - 1].topics[newData[counter - 1].topics.length - 1].topic_id !== data[i].topic_id) {
+                if (newData[counter - 1].topics.length === 0 || newData[counter - 1].topics[newData[counter - 1].topics.length - 1].topicId !== data[i].topic_id) {
                     newData[counter - 1].topics[counter2] = {
-                        // topic_id: data[i].topic_id,
+                        topicId: data[i].topic_id,
                         title: data[i].topic_title,
                         description: data[i].topic_description,
                         topic_created_at: data[i].topic_created_at,
