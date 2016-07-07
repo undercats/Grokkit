@@ -102,6 +102,7 @@ h2 {
   background-color: rgb(134, 38, 23);
   border-radius: 1em;
   margin-bottom: 3em;
+  box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.2);
 }
 
 h3 {
@@ -159,12 +160,20 @@ span {
 }
 
 .comment-list {
-  margin-top: 0.5em;
   font-size: 0.4em;
-  margin-bottom: 0.5em;
+}
+
+.comments h4 {
+  margin-top: 1em;
 }
 
 .comment-list li {
+  border-radius: 0.25em;
+  margin-bottom: 0.5em;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: rgb(255, 255, 255);
   color: rgb(45, 45, 43);
 }
 
@@ -297,4 +306,22 @@ span.newgroup {
 #allow {
   width: 93%;
   background-color: rgb(255, 255, 255);
+}
+
+#total {
+  font-family: 'BenchNine', sans-serif;
+  color: rgb(134, 38, 23);
+  margin-left: 1em;
+  font-size: 1em;
+}
+
+#total span {
+  font-size: 1.25em;
+  padding-left: 0.5em;
+  color: rgb(134, 38, 23);
+  font-family: 'Bangers', fantasy;
+}
+
+.comments p {
+  margin-left: 1em;
 }

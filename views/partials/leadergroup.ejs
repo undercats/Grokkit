@@ -1,14 +1,16 @@
 <div class="row">
     <div class="col-md-12 content">
       <h3>
-          Group Name
+          <%=group.title%>
           <span class="newgroup"><a href="">+ New Topic</a></span>
                                    <!-- TODO ^^ link here to newtopic.ejs -->
       </h3>
         <ul class="nopad">
             <li>
+                <%group.topics.forEach(function(topic){%>
+                  <%- include('leadertopic', {userInfo: userInfo, topic: topic}); %>
+                <%})%>
 
-                <%- include('leadertopic'); %>
 
             </li>
 

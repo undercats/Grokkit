@@ -21,7 +21,7 @@ router.get('/:username', function(req, res, next) {
         .leftJoin('groks', 'groks.topic_id', '=', 'topics.id')
         .select('users.id as user_id', 'username', 'user_image', 'is_leader', 'groups.id as group_id', 'groups.title as group_title', 'groups.description as group_description', 'topics.id as topic_id', 'topics.title as topic_title', 'topics.description as topic_description', 'topics.created_at as topic_created_at', 'is_old', 'groks.rating', 'groks.comment', 'groks.created_at as grok_created_at', 'leader_editable_only', 'display_name', 'first_name', 'last_name')
         .where('users.username', req.params.username).orderBy('group_id').orderBy('topic_id').then(function(data) {
-            userInfo.username = data[0].username;
+            userInfo.userName = data[0].username;
             userInfo.userImage = data[0].user_image;
             userInfo.firstName = data[0].first_name;
             userInfo.lastName = data[0].last_name;
@@ -33,6 +33,7 @@ router.get('/:username', function(req, res, next) {
                 if (groupCollector.indexOf(data[i].group_id) === -1) {
                     newData[counter] = {};
                     newData[counter].title = data[i].group_title;
+
                     newData[counter].description = data[i].group_description;
                     newData[counter].isLeader = data[i].is_leader;
                     newData[counter].leaderEditableOnly = data[i].leader_editable_only;
@@ -41,9 +42,9 @@ router.get('/:username', function(req, res, next) {
                     counter++;
                     counter2 = 0;
                 }
-                if (newData[counter - 1].topics.length === 0 || newData[counter - 1].topics[newData[counter - 1].topics.length - 1].topic_id !== data[i].topic_id) {
+                if (newData[counter - 1].topics.length === 0 || newData[counter - 1].topics[newData[counter - 1].topics.length - 1].topicId !== data[i].topic_id) {
                     newData[counter - 1].topics[counter2] = {
-                        // topic_id: data[i].topic_id,
+                        topicId: data[i].topic_id,
                         title: data[i].topic_title,
                         description: data[i].topic_description,
                         topic_created_at: data[i].topic_created_at,
@@ -76,7 +77,9 @@ router.get('/:username', function(req, res, next) {
                 userInfo: userInfo,
                 newData: newData
             };
-            res.json(allData);
+            console.log(allData);
+            console.log(allData.newData[0].topics);
+            res.render('loggedin', allData);
         }).catch(function(err) {
             next(new Error(err));
         });
