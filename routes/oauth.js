@@ -5,8 +5,15 @@ var router = express.Router();
 var passport = require('passport');
 
 
+router.get('/google',
+    passport.authenticate('google', {
+        scope:
+        ['email', 'profile']
+    }));
+
 
 router.get('/google/callback', function(req, res, next){
+    console.log('google callback');
 // passport.authenticate('google', { failureRedirect: '/' }),
 // function(req, res) {
 //     console.log('');
