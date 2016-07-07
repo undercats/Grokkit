@@ -12,7 +12,7 @@ router.get('/google/callback',
     // Successful authentication, redirect home.
     console.log('SESSION IS', req.session);
     var currentUser = req.session.passport.user.username;
-    res.redirect('/users/:username');
+    res.redirect('/users/'+ currentUser);
     //temp res.send for
     // res.send('OAUTH SIGNIN WORKED!')
   });

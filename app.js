@@ -168,7 +168,15 @@ function findOrCreate(profile, cb) {
             } else if (data.length <= 0) {
                 console.log('\nNo User Found, Creating\n', data);
                 //TODO make new user in DB and return user profile data
-                // knex('users').insert
+                var userObj = {
+                    username: data[0].username,
+                    display_name: data[0].display_name,
+                    first_name: data[0].first_name,
+                    last_name: data[0].last_name,
+                    user_image: data[0].user_image,
+                    email: data[0].email
+                };
+                knex('users').insert(userObj);
                 cb(null, profile);
             }
         }).catch(function(error) {
