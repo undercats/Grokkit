@@ -385,3 +385,61 @@ span.newgroup {
 #nogroups {
   text-align: center;
 }
+
+
+
+
+/*iPhone 6 styling*/
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px) {
+
+  .headerlogo {
+    margin-left: 16em;
+    padding-right: 0;
+  }
+
+  .username p {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+
+  .row {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .wrapper {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+/*nogroups page*/
+  .content {
+    margin-top: 5em;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 2em;
+  }
+
+  #nogroups {
+    font-size: 7em;
+    padding-top: 0.5em;
+  }
+
+  .nogroups {
+    margin-top: 0.5em;
+    font-size: 5em;
+  }
+
+/*loggedin page*/
+  .newgroup {
+    margin-right: 2em;
+  }
+
+}
