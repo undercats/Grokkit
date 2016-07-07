@@ -11,7 +11,8 @@ router.get('/google/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     console.log('SESSION IS', req.session);
-    res.redirect('/');
+    var currentUser = req.session.passport.user.username;
+    res.redirect('/users/:username');
     //temp res.send for
     // res.send('OAUTH SIGNIN WORKED!')
   });

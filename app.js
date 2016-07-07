@@ -163,31 +163,15 @@ function findOrCreate(profile, cb) {
             console.log('\ndata IN findOrCreate 1st .then is:\n', data);
             if (data.length === 1) {
                 console.log('\nUser Match Found\n', data[0]);
-                for (var prop in profile) {
-                    if (data.hasOwnProperty(prop)) {
-                        console.log('\nUpdating Property:', prop, '\n');
-                        knex('users')
-                            .where('prop', '!=', prop)
-                            .update({
-                                prop: prop,
-                            });
-                    } else {
-                        console.log('\nCreating Property:', prop, '\n');
-                        knex('users').insert({
-                            prop: 'TEST PROP'
-                        });
-                    }
-                }
-
                 //TODO return user profile data
                 cb(null, profile);
             } else if (data.length <= 0) {
                 console.log('\nNo User Found, Creating\n', data);
                 //TODO make new user in DB and return user profile data
+                // knex('users').insert
                 cb(null, profile);
             }
-        })
-        .catch(function(error) {
+        }).catch(function(error) {
             console.log('\nNo User Found or Created\n', error);
             cb(error);
         });
