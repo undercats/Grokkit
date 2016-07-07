@@ -3,17 +3,22 @@
 
     <div class="row nopad">
         <div class="col-md-12 comments nopad usertopic">
+
+          <a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>" id="ratetitle">
           <div class="titlecontainer">
-            <a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>" id="ratetitle"><%=topic.title%></a><br />
+            <h3 class="titleclass"><%=topic.title%></h3>
               <!-- TODO ^^ link here to take user to user topic view page aka rate.ejs-->
 
-              <span id="yourrating"><i>Your rating: <b></b></i></span>
-              <span id="ratethis"><i><a href="">Rate this topic</a></i></span>
+              <span class="yourrating"><i>Your rating: <b></b></i></span>
+              <span class="yourrating"><i>Rate this topic</i></span>
               <p><%=topic.description%></p>
 
             </div>
 
+          </a>
+
         </div>
-      </a>
+
     </div>
+
   </div>
