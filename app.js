@@ -65,12 +65,12 @@ passport.use(new GoogleStrategy({
 
         //make new, optimized profile
         var optimizedProfile = {
-            userName: userName,
-            displayName: profile.displayName,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            userImage: profile.photos[0].value,
-            emailAddress: emailAddress,
+            username: userName,
+            display_name: profile.displayName,
+            first_name: profile.name.givenName,
+            last_name: profile.name.familyName,
+            user_image: profile.photos[0].value,
+            email: emailAddress,
             accessToken: accessToken,
             refreshToken: refreshToken
         };
@@ -157,23 +157,29 @@ app.use(function(err, req, res, next) {
 
 function findOrCreate(profile, cb) {
     knex('users').where({
-            username: profile.userName
+            username: profile.username
         })
         .then(function(data) {
             console.log('\ndata IN findOrCreate 1st .then is:\n', data);
             if (data.length === 1) {
-                console.log('\nUser Match Found\n', data);
-                for (var prop in data) {
-                    if (object.hasOwnProperty(prop)) {
+                console.log('\nUser Match Found\n', data[0]);
+                for (var prop in profile) {
+                    if (data.hasOwnProperty(prop)) {
+                        console.log('\nUpdating Property:', prop, '\n');
                         knex('users')
-                            .where('prop', '!=', prop.value)
+                            .where('prop', '!=', prop)
                             .update({
-                                prop: prop.value,
+                                prop: prop,
                             });
+                    } else {
+                        console.log('\nCreating Property:', prop, '\n');
+                        knex('users').insert({
+                            prop: 'TEST PROP'
+                        });
                     }
                 }
 
-                    //TODO return user profile data
+                //TODO return user profile data
                 cb(null, profile);
             } else if (data.length <= 0) {
                 console.log('\nNo User Found, Creating\n', data);
