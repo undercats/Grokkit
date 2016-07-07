@@ -2,7 +2,7 @@
     <div class="col-md-12 content">
       <h3>
           <%=group.title%>
-          <span class="newgroup"><a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic">+ New Topic</a></span>
+          <span class="newgroup mobiletopic"><a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic">+ New Topic</a></span>
       </h3>
         <ul class="nopad">
             <li>
@@ -22,11 +22,23 @@
             </div>
             <!-- TODO ^^ delete the group -->
             <div class="col-md-6">
-              <button class="submit edit">Edit Group</button>
+              <a href = "/users/<%=userInfo.userName%>/groups/edit/<%=group.groupId%>"><button class="submit edit">Edit Group</button></a>
               <!-- TODO ^^ edit the group -->
             </div>
           </div>
         </div>
+
+<!-- BELOW WILL ONLY DISPLAY ON A MOBILE PHONE -->
+
+
+        <div class="row mobileonly">
+
+              <button class="submit topic">+ New Topic</button>
+
+        </div>
+
+        
+<!-- ABOVE WILL ONLY DISPLAY ON A MOBILE PHONE -->
 
     </div>
 

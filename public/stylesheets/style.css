@@ -2,10 +2,18 @@ body {
   background-color: rgb(45, 45, 43);
 }
 
+.mobileonly {
+  display:none;
+}
+
 .logo {
   margin-top: 4em;
   height: 35em;
   text-align: center;
+}
+
+.mobilebreak {
+  display: none;
 }
 
 h1 {
@@ -219,6 +227,8 @@ input {
 }
 
 .submit {
+  font-family: 'BenchNine', sans-serif;
+  font-size: 2em;
   color: rgb(131, 168, 207);
   border-radius: 0.25em;
   margin-bottom: 1em;
@@ -348,13 +358,23 @@ span.newgroup {
 }
 
 .usertopic a {
+  color: rgb(39, 85, 115);
+  font-family: 'BenchNine', sans-serif;
+}
+
+#ratetitle {
   font-family: 'Bangers', fantasy;
-  padding-left: 1em;
   color: rgb(134, 38, 23);
 }
 
 #yourrating {
   color: rgb(39, 85, 115);
+  padding: 1.25em;
+}
+
+.titlecontainer {
+  padding-top: 0.5em;
+  padding-left: 1em;
 }
 
 .delete {
@@ -386,7 +406,9 @@ span.newgroup {
   text-align: center;
 }
 
-
+.titlecontainer a {
+  padding-left: 0;
+}
 
 
 /*iPhone 6 styling*/
@@ -403,6 +425,15 @@ and (max-device-width : 667px) {
   .username p {
     margin-top: 0.5em;
     font-size: 1.5em;
+  }
+
+  .username span {
+    font-size: 1.5em;
+  }
+
+  .circle-img {
+    width: 2em;
+    height: 2em;
   }
 
   .row {
@@ -441,6 +472,65 @@ and (max-device-width : 667px) {
   .newgroup {
     margin-right: 2em;
     margin-bottom: -1em;
+  }
+
+  .content span {
+    text-align: left;
+    padding-bottom: 1em;
+  }
+
+  .content h3 {
+    padding-top: 1em;
+    padding-left: 1em;
+  }
+
+  .newgroup a {
+    font-size: 2em;
+    text-align: left;
+  }
+
+  .mobilebreak {
+    display: block;
+  }
+
+  .titlecontainer p {
+    margin-left: 0.5em;
+    padding-left: 0;
+    padding-bottom: 0.5em;
+    padding-top: 0.2em;
+  }
+
+  .edit {
+    margin-right: 0.4em;
+    width: 44%;
+    font-size: 3em;
+    float: right;
+  }
+
+  .delete {
+    margin-left: 0.5em;
+    width: 44%;
+    float: left;
+    font-size: 3em;
+  }
+
+  .mobiletopic {
+    display: none;
+  }
+
+  .mobileonly {
+    display: inline;
+  }
+
+  .topic {
+    padding:0;
+    margin-left:3.5em;
+    width: 70%;
+    font-size: 3em;
+    background-color: rgb(131, 168, 207);
+    color: rgb(45, 45, 43);
+    border: 3px solid rgb(45, 45, 43);
+    font-family: 'Bangers', fantasy;
   }
 
 }
