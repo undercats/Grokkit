@@ -33,6 +33,7 @@ router.get('/:username', function(req, res, next) {
                 if (groupCollector.indexOf(data[i].group_id) === -1) {
                     newData[counter] = {};
                     newData[counter].title = data[i].group_title;
+
                     newData[counter].description = data[i].group_description;
                     newData[counter].isLeader = data[i].is_leader;
                     newData[counter].leaderEditableOnly = data[i].leader_editable_only;
