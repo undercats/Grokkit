@@ -10,18 +10,23 @@
           <input type = "text" name = "userId" value = "<%=userInfo.userId%>" style = "display: none;"/>
 
           <%if(userInfo.editType === 'edit'){%>
-            <label class="pfont">Group Name</label><br />
-            <input type="text" value = '<%=userInfo.groupTitle%>' class="fullsize" name = "title">
+            <label class="pfont">Group Name<br />
+              <input type="text" value = '<%=userInfo.groupTitle%>' class="fullsize" name = "title">
+            </label>
 
-            <label class="pfont">Description</label><br />
-            <input type="text" value = '<%=userInfo.groupDescription%>' class="fullsize" name = "description">
+            <label class="pfont">Description<br />
+              <input type="text" value = '<%=userInfo.groupDescription%>' class="fullsize" name = "description">
+            </label>
 
             <%}else{%>
-              <label class="pfont">Group Name</label><br />
-              <input type="text" class="fullsize" name = "title">
+              <label class="pfont">Group Name<br />
+                <input type="text" class="fullsize" name = "title">
+              </label>
 
-              <label class="pfont">Description</label><br />
-              <input type="text" class="fullsize" name = "description">
+              <label class="pfont">Description<br />
+                <input type="text" class="fullsize" name = "description">
+              </label>
+              
               <%}%>
 
 
@@ -32,18 +37,28 @@
               <radiogroup>
 
               <%if(userInfo.editType === 'edit' && !userInfo.leaderEditableOnly){%>
-                <input type="radio" id="nocheckbox" name="permissions" value="leader">
-                <label for="nocheckbox" class="pfont checks">Leaders</label><br />
+                <label for="nocheckbox" class="pfont">
+                  <input type="radio" id="nocheckbox" name="permissions" value="leader">Leaders
+                </label>
 
-                <input type="radio" id="ucheckbox" name="permissions" checked="checked" value = "user">
-                <label for="ucheckbox" class="pfont checks">Users</label><br />
+                <br />
+
+                <label for="ucheckbox" class="pfont">
+                  <input type="radio" id="ucheckbox" name="permissions" checked="checked" value = "user">Users
+                </label>
+
                 <%}else{%>
-                  <input type="radio" id="nocheckbox" name="permissions" value="leader" checked="checked">
-                  <label for="nocheckbox" class="pfont checks">Leaders</label><br />
+                  <label for="nocheckbox" class="pfont">
+                    <input type="radio" id="nocheckbox" name="permissions" value="leader" checked="checked">Leaders
+                  </label>
 
-                  <input type="radio" id="ucheckbox" name="permissions" value = "user">
-                  <label for="ucheckbox" class="pfont checks">Users</label><br />
-                  <%}%>
+                  <br />
+
+                  <label for="ucheckbox" class="pfont">
+                    <input type="radio" id="ucheckbox" name="permissions" value = "user">Users
+                  </label>
+                <%}%>
+
 
             </radiogroup>
 
@@ -77,14 +92,14 @@
   </div>
 
   <div class="row nopad">
-    <div class="col-md-4"></div>
+    <div class="col-md-4 nopad"></div>
     <div class="col-md-4 nopad">
       <button type = "submit" class="submit nopad">
         <%if(userInfo.editType === "edit"){%>
           Update
         <%}else{%>
           Create
-        <%}%>   
+        <%}%>
       </button>
       <!-- TODO ^^ validate the form -->
       </form>

@@ -2,8 +2,8 @@
   <div class="col-md-12 content">
     <h3><%=group.title%>
       <%if(!group.leaderEditableOnly){%>
-      <span class="newgroup"><a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic">+ New Topic</a></span>
-    <%}%>   
+      <span class="newgroup mobiletopic"><a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic">+ New Topic</a></span>
+    <%}%>
 </h3>
 
       <ul class="nopad">
@@ -14,6 +14,19 @@
          </li>
 
        </ul>
+
+       <!-- BELOW WILL ONLY DISPLAY ON A MOBILE PHONE -->
+
+
+               <div class="row mobileonly">
+
+                     <a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic"><button class="submit topic">+ New Topic</button></a>
+
+               </div>
+
+
+       <!-- ABOVE WILL ONLY DISPLAY ON A MOBILE PHONE -->
+
 
   </div>
 </div>

@@ -4,14 +4,17 @@
   <div class="row nopad">
     <div class="col-md-12 comments nopad leadertopic">
 
-      <div class="titlecontainer">
-          <a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>"><%=topic.title%></a><br />
+      <a href="/users/<%=userInfo.userName%>/topics/<%=topic.topicId%>">
+        <div class="titlecontainer">
+          <h3 class="titleclass"><%=topic.title%></h3>
             <!-- TODO ^^ link here to take user to leader topic view page-->
-          <span><i><b><%=topic.ratings.length%></b> user(s) have rated</i></span>
-          <span><i>Comments: <%=topic.commentCount%></i></span>
+          <span class="userrate"><i><b><%=topic.ratings.length%></b> user(s) have rated</i></span>
+          <span class="userrate"><i>Comments: <%=topic.commentCount%></i></span>
 
           <h4>Average Rating: <%=topic.ratingAverage%></h4>
         </div>
+
+        </a>
 
 
 
