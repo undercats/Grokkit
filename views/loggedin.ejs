@@ -49,7 +49,7 @@
 
             <h3 class="newgroup"><a href="/users/<%=userInfo.userName%>/groups/new">+ New Group</a></h3>
             <%if(newData.length ===0){%>
-              <p>SORRY YOU GOT NO GROUPS</p>
+              <%- include('partials/nogroups'); %>
             <%}else{%>
 
 
