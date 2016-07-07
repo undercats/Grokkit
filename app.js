@@ -5,6 +5,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var ejs = require('ejs');
+var knex = require('./db/knex');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
@@ -42,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 passport.serializeUser(function(user, done) {
-    //later this will be where you selectively send to the browser an identifier for your user, like their primary key from the database, or their ID from linkedin
+    //later this will be where you selectively send to the browser an identifier for your user, like their primary key from the database, or their ID from Google
     done(null, user);
 });
 
@@ -57,15 +58,36 @@ passport.use(new GoogleStrategy({
         callbackURL: "/oauth/google/callback"
     },
     function(accessToken, refreshToken, profile, cb) {
+        console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
+        //simplify some data
         var emailAddress = profile.emails[0].value;
         var userName = emailAddress.substring(0, emailAddress.indexOf('@'));
-        console.log('userName is: ', userName);
 
-        // TODO ADD IN OUR DATABASE CODE HERE THAT DOES A findORCreate-LIKE FUNCTION.
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        // });
+        //make new, optimized profile
+        var optimizedProfile = {
+            username: userName,
+            display_name: profile.displayName,
+            first_name: profile.name.givenName,
+            last_name: profile.name.familyName,
+            user_image: profile.photos[0].value,
+            email: emailAddress,
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        };
+        console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
+        //set profile to optimizedProfile
+        profile = optimizedProfile;
+        console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
+        //databasefunction that finds an existing user or creates a new one.
+        findOrCreate(profile, function(err, user) {
+            console.log('\nERROR or USER =\n', err || user, '\n');
+            if (!err) {
+                return cb(null, user);
+            } else {
+                return cb(err);
+            }
+        });
 
-        return cb(null, profile);
     }
 ));
 
@@ -136,6 +158,49 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+function findOrCreate(profile, cb) {
+    knex('users').where({
+            username: profile.username
+        })
+        .then(function(data) {
+            console.log('\ndata IN findOrCreate 1st .then is:\n', data);
+            if (data.length > 0) {
+                console.log('\nUser Match Found\n', data[0]);
+                //TODO return user profile data
+                return cb(null, profile);
+            } else {
+                console.log('\nNo User Found, Creating\n', data);
+                //TODO make new user in DB and return user profile data
+                var userObj = {
+                    username: profile.username,
+                    display_name: profile.display_name,
+                    first_name: profile.first_name,
+                    last_name: profile.last_name,
+                    user_image: profile.user_image,
+                    email: profile.email
+                };
+                console.log('userObj is:\n', userObj);
+                knex('users').insert(userObj).returning('*').then(function(result){
+                    console.log('\nKnex Insert Result is:', result);
+                });
+                console.log('New user added to DB!');
+            }
+            return knex('users').where({
+                username: profile.username
+            });
+        }).then(function(data) {
+            cb(null, data);
+        }).catch(function(error) {
+            console.log('\nNo User Found or Created\n', error);
+            cb(error);
+        });
+}
+
+
+
+
+
 
 
 module.exports = app;
