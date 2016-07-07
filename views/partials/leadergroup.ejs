@@ -6,10 +6,13 @@
       </h3>
         <ul class="nopad">
             <li>
+              <%if(group.topics[0].topicId !==null){%>
+
+
                 <%group.topics.forEach(function(topic){%>
                   <%- include('leadertopic', {userInfo: userInfo, topic: topic}); %>
                 <%})%>
-
+                <%}%>
 
             </li>
 

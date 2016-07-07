@@ -2,7 +2,16 @@
 
 var express = require('express');
 var router = express.Router();
-var knex = require('../db/knex');
+var knex = require('knex');
+var config = require('../knexfile');
+require('dotenv').config();
+var environment = process.env.NODE_ENV || 'development';
+var db = knex(config[environment]);
+var checkit = require('checkit');
+var check = new checkit({
+  title: ['required', 'maxLength:255'],
+  description: ['required', 'maxLength:255']
+});
 
 
 
@@ -13,20 +22,17 @@ var knex = require('../db/knex');
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
-    console.log('\nReq params is: ', req.params);
-    console.log('\nReq params username is: ', req.params.username);
-    console.log('\nReq session is:', req.session);
     // if (req.params.username === req.session.passport.user.username) {
     var newData = [];
     var userInfo = {};
-    knex('users').where('username', req.params.username).then(function(data) {
+    db('users').where('username', req.params.username).then(function(data) {
             userInfo.userName = data[0].username;
             userInfo.userImage = data[0].user_image;
             userInfo.firstName = data[0].first_name;
             userInfo.lastName = data[0].last_name;
             userInfo.displayName = data[0].display_name;
         }).then(function() {
-            knex('users_groups')
+            db('users_groups')
                 .leftJoin('users', 'users_groups.user_id', '=', 'users.id')
                 .leftJoin('groups', 'users_groups.group_id', '=', 'groups.id')
                 .leftJoin('topics', 'topics.group_id', '=', 'groups.id')
@@ -85,6 +91,7 @@ router.get('/:username', function(req, res, next) {
                         userInfo: userInfo,
                         newData: newData
                     };
+                    console.log(allData.newData[2].topics);
                     res.render('loggedin', allData);
 
                 });
@@ -105,7 +112,7 @@ router.get('/:username', function(req, res, next) {
 
 router.get('/:username/topics/:topic_id', function(req, res, next) {
     var newData = {};
-    knex('topics')
+    db('topics')
         .join('users_groups', 'topics.group_id', '=', 'users_groups.group_id')
         .join('users', 'users.id', '=', 'users_groups.user_id')
         .where('topics.id', req.params.topic_id).where('users.username', req.params.username)
@@ -124,7 +131,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
 
         }).then(function() {
             if (newData.isLeader) {
-                knex('groks')
+                db('groks')
                     .join('users', 'groks.user_id', '=', 'users.id')
                     .where('groks.topic_id', req.params.topic_id)
                     .then(function(data) {
@@ -149,7 +156,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
 
                     });
             } else {
-                knex('groks')
+                db('groks')
                     .join('users', 'groks.user_id', '=', 'users.id')
                     .where('username', req.params.username).where('groks.topic_id', req.params.topic_id)
                     .then(function(data) {
@@ -174,7 +181,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
 
 router.get('/:username/groups/new', function(req, res, next) {
     var userInfo;
-    knex('users').where('username', req.params.username).then(function(data) {
+    db('users').where('username', req.params.username).then(function(data) {
         userInfo = {
             username: data[0].username,
             firstName: data[0].first_name,
@@ -184,7 +191,7 @@ router.get('/:username/groups/new', function(req, res, next) {
             userId: data[0].id
         };
     }).then(function() {
-        knex('users').whereNot('username', req.params.username).select('id as user_id', 'username', 'email', 'first_name', 'last_name', 'user_image', 'display_name').orderBy('username').then(function(data) {
+        db('users').whereNot('username', req.params.username).select('id as user_id', 'username', 'email', 'first_name', 'last_name', 'user_image', 'display_name').orderBy('username').then(function(data) {
             var newData = {
                 userInfo: userInfo,
                 userList: data
@@ -199,7 +206,7 @@ router.get('/:username/groups/new', function(req, res, next) {
 
 router.get('/:username/groups/:group_id/newtopic', function(req, res, next) {
     var newData;
-    knex('users')
+    db('users')
         .join('users_groups', 'users.id', '=', 'users_groups.user_id')
         .join('groups', 'groups.id', '=', 'users_groups.group_id')
         .where('username', req.params.username).where('groups.id', req.params.group_id)
@@ -225,7 +232,7 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next) {
 
 router.get('/:username/groups/edit/:group_id', function(req, res, next) {
     var newData = {};
-    knex('users')
+    db('users')
         .join('users_groups', 'users.id', '=', 'users_groups.user_id')
         .join('groups', 'groups.id', '=', 'users_groups.group_id')
         .where('username', req.params.username).where('groups.id', req.params.group_id)
@@ -245,10 +252,10 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
             };
 
         }).then(function() {
-            knex('users')
+            db('users')
                 .orderBy('username').then(function(data) {
                     newData.userList = data;
-                    knex('users_groups')
+                    db('users_groups')
                         .where('users_groups.group_id', req.params.group_id).then(function(data) {
                             for (var i = 0; i < newData.userList.length; i++) {
                                 newData.userList[i].user_id = newData.userList[i].id;
@@ -269,14 +276,19 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
             next(new Error(err));
         });
 });
-
+router.get('/logout', function(req, res, next) {
+    req.session = null;
+    res.redirect('/');
+});
 router.post('/:username/groups/new', function(req, res, next) {
+  check.run(req.body).then(function(validated){
+  }).then(function(){
     var leaderEditableOnly = true;
     if (req.body.permissions === 'user') {
         leaderEditableOnly = false;
     }
 
-    knex('groups').insert({
+    db('groups').insert({
         title: req.body.title,
         description: req.body.description,
         leader_editable_only: leaderEditableOnly
@@ -305,16 +317,27 @@ router.post('/:username/groups/new', function(req, res, next) {
 
             }
         }
-        knex('users_groups').insert(userArray).then(function() {
+        db('users_groups').insert(userArray).then(function() {
             res.redirect('/users/' + req.params.username);
         });
     }).catch(function(err) {
         next(new Error(err));
     });
+
+  }).catch(function(err){
+    res.redirect('/users/' + req.params.username + '/groups/new');
+  });
+
 });
+
 router.post('/:username/topics/:topic_id', function(req, res, next){
+  // check.run(req.body).then(function(validated){
+  //
+  // }).catch(function(err){
+  //   console.log(err);
+  // })
   var comment = req.body.comment || null;
-  knex('groks').insert({user_id: Number(req.body.userId) , topic_id: req.params.topic_id, rating: req.body.rating, comment: comment}).then(function(){
+  db('groks').insert({user_id: Number(req.body.userId) , topic_id: req.params.topic_id, rating: req.body.rating, comment: comment}).then(function(){
     res.redirect('/users/' + req.params.username);
   }).catch(function(err) {
       next(new Error(err));
@@ -324,7 +347,7 @@ router.post('/:username/topics/:topic_id', function(req, res, next){
 router.post('/:username/topics/edit/:topic_id', function(req, res, next){
   console.log(req.body);
   var comment = req.body.comment || null;
-  knex('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.params.topic_id).update({rating: req.body.rating, comment: comment}).then(function(){
+  db('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.params.topic_id).update({rating: req.body.rating, comment: comment}).then(function(){
     res.redirect('/users/' + req.params.username);
   }).catch(function(err) {
       next(new Error(err));
@@ -332,7 +355,7 @@ router.post('/:username/topics/edit/:topic_id', function(req, res, next){
 });
 
 router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
-    knex('topics').insert({
+    db('topics').insert({
             group_id: req.params.group_id,
             title: req.body.title,
             description: req.body.description,
@@ -345,17 +368,14 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
         });
 });
 
-router.get('/logout', function(req, res, next) {
-    req.session = null;
-    res.redirect('/');
-});
+
 
 router.post('/:username/groups/edit/:group_id', function(req, res, next) {
     var leaderEditableOnly = true;
     if (req.body.permissions === 'user') {
         leaderEditableOnly = false;
     }
-    knex('groups').where('id', req.params.group_id).update({
+    db('groups').where('id', req.params.group_id).update({
         title: req.body.title,
         description: req.body.description,
         leader_editable_only: leaderEditableOnly
@@ -381,9 +401,9 @@ router.post('/:username/groups/edit/:group_id', function(req, res, next) {
 
             }
         }
-        knex('users_groups').whereIn('user_id', deleteArray).where('group_id', req.params.group_id).del()
+        db('users_groups').whereIn('user_id', deleteArray).where('group_id', req.params.group_id).del()
             .then(function() {
-                knex('users_groups').insert(userArray).then(function() {
+                db('users_groups').insert(userArray).then(function() {
 
                 });
             })
@@ -394,15 +414,15 @@ router.post('/:username/groups/edit/:group_id', function(req, res, next) {
 });
 
 router.delete('/:username/groups/delete/:group_id', function(req, res, next){
-  knex('users_groups').where('group_id', req.params.group_id).del().then(function(){
-    knex('groups').where('id', req.params.group_id).del().then(function(){
-      knex('topics').where('group_id', req.params.group_id).select('id').then(function(data){
+  db('users_groups').where('group_id', req.params.group_id).del().then(function(){
+    db('groups').where('id', req.params.group_id).del().then(function(){
+      db('topics').where('group_id', req.params.group_id).select('id').then(function(data){
         var deleteArray = [];
         for(var i = 0; i < data.length; i++){
           deleteArray.push(data[i].id);
         }
-        knex('topics').where('group_id', req.params.group_id).del().then(function(){
-          knex('groks').whereIn('topic_id', deleteArray).del().then(function(){
+        db('topics').where('group_id', req.params.group_id).del().then(function(){
+          db('groks').whereIn('topic_id', deleteArray).del().then(function(){
             res.redirect('/users/' + req.params.username);
           });
         });
@@ -415,8 +435,8 @@ router.delete('/:username/groups/delete/:group_id', function(req, res, next){
 });
 
 router.delete('/:username/topics/delete/:topic_id', function(req, res, next){
-  knex('topics').where('id', req.params.topic_id).del().then(function(){
-    knex('groks').where('topic_id', req.params.topic_id).del().then(function(){
+  db('topics').where('id', req.params.topic_id).del().then(function(){
+    db('groks').where('topic_id', req.params.topic_id).del().then(function(){
       res.redirect('/users/' + req.params.username);
     });
   }).catch(function(err) {
