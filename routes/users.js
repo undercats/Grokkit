@@ -321,9 +321,10 @@ router.post('/:username/topics/:topic_id', function(req, res, next){
     });
 });
 
-router.post('/;username/topics/edit/:topic_id', function(req, res, next){
+router.post('/:username/topics/edit/:topic_id', function(req, res, next){
+  console.log(req.body);
   var comment = req.body.comment || null;
-  knex('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.query.topic_id).update({rating: req.body.rating, comment: comment}).then(function(){
+  knex('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.params.topic_id).update({rating: req.body.rating, comment: comment}).then(function(){
     res.redirect('/users/' + req.params.username);
   }).catch(function(err) {
       next(new Error(err));
