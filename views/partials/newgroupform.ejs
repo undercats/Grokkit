@@ -3,23 +3,41 @@
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
         <form>
-          <label class="pfont">Group Name</label><br />
-          <input typ="text" class="fullsize">
 
-          <label class="pfont">Description</label><br />
-          <input typ="text" class="fullsize">
+          <%if(userInfo.editType === 'edit'){%>
+            <label class="pfont">Group Name</label><br />
+            <input type="text" value = '<%=userInfo.groupTitle%>' class="fullsize">
+
+            <label class="pfont">Description</label><br />
+            <input type="text" value = '<%=userInfo.groupDescription%>' class="fullsize">
+
+            <%}else{%>
+              <label class="pfont">Group Name</label><br />
+              <input type="text" class="fullsize">
+
+              <label class="pfont">Description</label><br />
+              <input type="text" class="fullsize">
+              <%}%>
+
 
           <div class="names" id="allow">
             <label class="pfont">Who can add and remove topics in this group?</label><br />
             <!-- ^^name of individual group member goes here -->
 
               <radiogroup>
-
-                <input type="radio" id="nocheckbox" name="permissions" value="" checked="checked">
+              <%if(userInfo.editType === 'edit' && !userInfo.leaderEditableOnly){%>
+                <input type="radio" id="nocheckbox" name="permissions" value="" >
                 <label for="nocheckbox" class="pfont checks">Leaders</label><br />
 
-                <input type="radio" id="ucheckbox" name="permissions2">
+                <input type="radio" id="ucheckbox" name="permissions" checked="checked">
                 <label for="ucheckbox" class="pfont checks">Users</label><br />
+                <%}else{%>
+                  <input type="radio" id="nocheckbox" name="permissions" value="" checked="checked">
+                  <label for="nocheckbox" class="pfont checks">Leaders</label><br />
+
+                  <input type="radio" id="ucheckbox" name="permissions">
+                  <label for="ucheckbox" class="pfont checks">Users</label><br />
+                  <%}%>
 
             </radiogroup>
 
@@ -42,11 +60,10 @@
               <b><i>User</i></b>  (user accessibilities)<br />
               <b><i>Leader</i></b>  (give them admin permissions)</h5>
           </label><br />
+          <%userList.forEach(function(user){%>
+            <%- include('nameboxes', user); %>
+          <%})%>
 
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
 
         </form>
       </div>

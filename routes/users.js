@@ -102,6 +102,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
             newData.userImage = data[0].user_image;
             newData.firstName = data[0].first_name;
             newData.lastName = data[0].last_name;
+            newData.displayName = data[0].display_name;
             newData.isLeader = data[0].is_leader;
             newData.topicTitle = data[0].title;
             newData.topicDescription = data[0].description;
@@ -120,10 +121,10 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                                 newData.ratings[i].comment = data[i].comment;
                                 newData.ratings[i].commentBy = data[i].username;
                             }
-                            res.json(newData);
+                            res.render('rate', newData);
                         } else {
                             newData.ratings = null;
-                            res.json(newData);
+                            res.render('rate', newData);
                         }
 
                     });
@@ -135,11 +136,11 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                         if (data.length > 0) {
                             newData.myRating = data[0].rating;
                             newData.myComment = data[0].comment;
-                            res.json(newData);
+                            res.render('rate', newData);
                         } else {
                             newData.myRating = null;
                             newData.myComment = null;
-                            res.json(newData);
+                            res.render('rate', newData);
                         }
                     });
             }
@@ -160,12 +161,13 @@ router.get('/:username/groups/new', function(req, res, next) {
             displayName: data[0].display_name
         };
     }).then(function() {
-        knex('users').whereNot('username', req.params.username).then(function(data) {
+        knex('users').whereNot('username', req.params.username).orderBy('username').then(function(data) {
             var newData = {
                 userInfo: userInfo,
                 userList: data
             };
-            res.json(newData);
+            console.log(newData);
+            res.render('newgroup', newData);
         });
     }).catch(function(err) {
         next(new Error(err));
@@ -180,6 +182,7 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next){
   .where('username', req.params.username).where('groups.id', req.params.group_id)
   .then(function(data) {
       newData = {
+          editType: 'new',
           username: data[0].username,
           firstName: data[0].first_name,
           lastName: data[0].last_name,
@@ -191,20 +194,21 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next){
           groupDescription: data[0].description,
           leaderEditableOnly: data[0].leader_editable_only
       };
-      res.json(newData);
+      res.render('newtopic', newData);
   }).catch(function(err) {
       next(new Error(err));
   });
 });
 
 router.get('/:username/groups/edit/:group_id', function(req, res, next){
-  var newData;
+  var newData = {};
   knex('users')
   .join('users_groups', 'users.id', '=', 'users_groups.user_id')
   .join('groups', 'groups.id', '=', 'users_groups.group_id')
   .where('username', req.params.username).where('groups.id', req.params.group_id)
   .then(function(data) {
-      newData = {
+      newData.userInfo = {
+          editType: 'edit',
           username: data[0].username,
           firstName: data[0].first_name,
           lastName: data[0].last_name,
@@ -216,7 +220,17 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next){
           groupDescription: data[0].description,
           leaderEditableOnly: data[0].leader_editable_only
       };
-      res.json(newData);
+
+  }).then(function(){
+    knex('users_groups')
+    .join('users', 'users_groups.user_id', '=', 'users.id')
+    .where('users_groups.group_id', req.params.group_id)
+    .orderBy('username')
+    .then(function(data){
+      newData.userList = data;
+      console.log(newData);
+      res.render('newgroup', newData);
+    })
   }).catch(function(err) {
       next(new Error(err));
   });
