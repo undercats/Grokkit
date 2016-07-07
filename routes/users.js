@@ -15,6 +15,13 @@ var knex = require('../db/knex');
 router.get('/:username', function(req, res, next) {
     var newData = [];
     var userInfo = {};
+    knex('users').where('username', req.params.username).then(function(data){
+      userInfo.userName = data[0].username;
+      userInfo.userImage = data[0].user_image;
+      userInfo.firstName = data[0].first_name;
+      userInfo.lastName = data[0].last_name;
+      userInfo.displayName = data[0].display_name;
+    }).then(function(){
     knex('users_groups')
         .leftJoin('users', 'users_groups.user_id', '=', 'users.id')
         .leftJoin('groups', 'users_groups.group_id', '=', 'groups.id')
@@ -22,11 +29,7 @@ router.get('/:username', function(req, res, next) {
         .leftJoin('groks', 'groks.topic_id', '=', 'topics.id')
         .select('users.id as user_id', 'username', 'user_image', 'is_leader', 'groups.id as group_id', 'groups.title as group_title', 'groups.description as group_description', 'topics.id as topic_id', 'topics.title as topic_title', 'topics.description as topic_description', 'topics.created_at as topic_created_at', 'is_old', 'groks.rating', 'groks.comment', 'groks.created_at as grok_created_at', 'leader_editable_only', 'display_name', 'first_name', 'last_name')
         .where('users.username', req.params.username).orderBy('group_id').orderBy('topic_id').then(function(data) {
-            userInfo.userName = data[0].username;
-            userInfo.userImage = data[0].user_image;
-            userInfo.firstName = data[0].first_name;
-            userInfo.lastName = data[0].last_name;
-            userInfo.displayName = data[0].display_name;
+          if(data.length > 0){
             var groupCollector = [];
             var counter = 0;
             var counter2;
@@ -72,16 +75,16 @@ router.get('/:username', function(req, res, next) {
                     newData[j].topics[k].ratingAverage = Number((ratingsTotal / newData[j].topics[k].ratings.length).toFixed(2));
                 }
             }
-
-        })
-        .then(function() {
+          }
             var allData = {
                 userInfo: userInfo,
                 newData: newData
             };
-            console.log(allData);
             res.render('loggedin', allData);
-        }).catch(function(err) {
+
+        });
+        })
+          .catch(function(err) {
             next(new Error(err));
         });
 });
