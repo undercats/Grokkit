@@ -2,12 +2,24 @@
 
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
-        <form>
-          <label class="pfont">Group Name</label><br />
-          <input typ="text" class="fullsize">
+        <form method = 'post' action = '/users/<%=userInfo.username%>/groups/new'>
+          <input type = "text" name = "userId" value = "<%=userInfo.userId%>" style = "display: none;"/>
 
-          <label class="pfont">Description</label><br />
-          <input typ="text" class="fullsize">
+          <%if(userInfo.editType === 'edit'){%>
+            <label class="pfont">Group Name</label><br />
+            <input type="text" value = '<%=userInfo.groupTitle%>' class="fullsize" name = "title">
+
+            <label class="pfont">Description</label><br />
+            <input type="text" value = '<%=userInfo.groupDescription%>' class="fullsize" name = "description">
+
+            <%}else{%>
+              <label class="pfont">Group Name</label><br />
+              <input type="text" class="fullsize" name = "title">
+
+              <label class="pfont">Description</label><br />
+              <input type="text" class="fullsize" name = "description">
+              <%}%>
+
 
           <div class="names" id="allow">
             <label class="pfont">Who can add and remove topics in this group?</label><br />
@@ -15,11 +27,19 @@
 
               <radiogroup>
 
-                <input type="checkbox" id="nocheckbox" name="permissions" value="" checked="checked">
+              <%if(userInfo.editType === 'edit' && !userInfo.leaderEditableOnly){%>
+                <input type="radio" id="nocheckbox" name="permissions" value="leader" name =  >
                 <label for="nocheckbox" class="pfont checks">Leaders</label><br />
 
-                <input type="checkbox" id="ucheckbox" name="permissions">
+                <input type="radio" id="ucheckbox" name="permissions" checked="checked" value = "user">
                 <label for="ucheckbox" class="pfont checks">Users</label><br />
+                <%}else{%>
+                  <input type="radio" id="nocheckbox" name="permissions" value="leader" checked="checked">
+                  <label for="nocheckbox" class="pfont checks">Leaders</label><br />
+
+                  <input type="radio" id="ucheckbox" name="permissions" value = "user">
+                  <label for="ucheckbox" class="pfont checks">Users</label><br />
+                  <%}%>
 
             </radiogroup>
 
@@ -27,14 +47,13 @@
           </div>
 
 
-        </form>
       </div>
     </div>
 
 
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
-        <form>
+
           <label>
             Select Your Group
             <h5>Select the permissions for your group members:<br />
@@ -42,13 +61,12 @@
               <b><i>User</i></b>  (user accessibilities)<br />
               <b><i>Leader</i></b>  (give them admin permissions)</h5>
           </label><br />
+          <%userList.forEach(function(user){%>
+            <%- include('nameboxes', user); %>
+          <%})%>
 
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
-          <%- include('nameboxes'); %>
 
-        </form>
+
       </div>
     </div>
 
@@ -57,7 +75,8 @@
   <div class="row nopad">
     <div class="col-md-4"></div>
     <div class="col-md-4 nopad">
-      <button class="submit nopad">Create</button>
+      <button type = "submit" class="submit nopad">Create</button>
       <!-- TODO ^^ validate the form -->
+      </form>
     </div>
   </div>

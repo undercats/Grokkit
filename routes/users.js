@@ -5,6 +5,7 @@ var router = express.Router();
 var knex = require('../db/knex');
 
 
+
 // back from google with info
 // query database for username
 // /usercheck
@@ -41,6 +42,7 @@ router.get('/:username', function(req, res, next) {
                     newData[counter].isLeader = data[i].is_leader;
                     newData[counter].leaderEditableOnly = data[i].leader_editable_only;
                     newData[counter].topics = [];
+                    newData[counter].groupId = data[i].group_id;
                     groupCollector.push(data[i].group_id);
                     counter++;
                     counter2 = 0;
@@ -105,6 +107,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
             newData.userImage = data[0].user_image;
             newData.firstName = data[0].first_name;
             newData.lastName = data[0].last_name;
+            newData.displayName = data[0].display_name;
             newData.isLeader = data[0].is_leader;
             newData.topicTitle = data[0].title;
             newData.topicDescription = data[0].description;
@@ -117,16 +120,19 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                     .then(function(data) {
                         if (data.length > 0) {
                             newData.ratings = [];
+                            var counter = 0
                             for (var i = 0; i < data.length; i++) {
                                 newData.ratings[i] = {};
                                 newData.ratings[i].rating = data[i].rating;
                                 newData.ratings[i].comment = data[i].comment;
                                 newData.ratings[i].commentBy = data[i].username;
+                                counter += data[i].rating;
                             }
-                            res.json(newData);
+                            newData.avgRating = Number(counter / data.length.toFixed(2));
+                            res.render('viewtopic', newData);
                         } else {
                             newData.ratings = null;
-                            res.json(newData);
+                            res.render('viewtopic', newData);
                         }
 
                     });
@@ -138,11 +144,11 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                         if (data.length > 0) {
                             newData.myRating = data[0].rating;
                             newData.myComment = data[0].comment;
-                            res.json(newData);
+                            res.render('rate', newData);
                         } else {
                             newData.myRating = null;
                             newData.myComment = null;
-                            res.json(newData);
+                            res.render('rate', newData);
                         }
                     });
             }
@@ -160,15 +166,17 @@ router.get('/:username/groups/new', function(req, res, next) {
             firstName: data[0].first_name,
             lastName: data[0].last_name,
             userImage: data[0].user_image,
-            displayName: data[0].display_name
+            displayName: data[0].display_name,
+            userId: data[0].id
         };
     }).then(function() {
-        knex('users').whereNot('username', req.params.username).then(function(data) {
+        knex('users').whereNot('username', req.params.username).select('id as user_id', 'username', 'email', 'first_name', 'last_name', 'user_image', 'display_name').orderBy('username').then(function(data) {
             var newData = {
                 userInfo: userInfo,
                 userList: data
             };
-            res.json(newData);
+            console.log(newData);
+            res.render('newgroup', newData);
         });
     }).catch(function(err) {
         next(new Error(err));
@@ -183,6 +191,7 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next){
   .where('username', req.params.username).where('groups.id', req.params.group_id)
   .then(function(data) {
       newData = {
+          editType: 'new',
           username: data[0].username,
           firstName: data[0].first_name,
           lastName: data[0].last_name,
@@ -194,20 +203,21 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next){
           groupDescription: data[0].description,
           leaderEditableOnly: data[0].leader_editable_only
       };
-      res.json(newData);
+      res.render('newtopic', newData);
   }).catch(function(err) {
       next(new Error(err));
   });
 });
 
 router.get('/:username/groups/edit/:group_id', function(req, res, next){
-  var newData;
+  var newData = {};
   knex('users')
   .join('users_groups', 'users.id', '=', 'users_groups.user_id')
   .join('groups', 'groups.id', '=', 'users_groups.group_id')
   .where('username', req.params.username).where('groups.id', req.params.group_id)
   .then(function(data) {
-      newData = {
+      newData.userInfo = {
+          editType: 'edit',
           username: data[0].username,
           firstName: data[0].first_name,
           lastName: data[0].last_name,
@@ -219,7 +229,56 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next){
           groupDescription: data[0].description,
           leaderEditableOnly: data[0].leader_editable_only
       };
-      res.json(newData);
+
+  }).then(function(){
+    knex('users_groups')
+    .join('users', 'users_groups.user_id', '=', 'users.id')
+    .where('users_groups.group_id', req.params.group_id)
+    .orderBy('username')
+    .then(function(data){
+      newData.userList = data;
+      res.render('newgroup', newData);
+    })
+  }).catch(function(err) {
+      next(new Error(err));
+  });
+});
+
+router.post('/:username/groups/new', function(req, res, next){
+  var leaderEditableOnly = true;
+  if(req.body.permissions === 'user'){
+    leaderEditableOnly = false;
+  }
+
+  knex('groups').insert({title: req.body.title, description: req.body.description, leader_editable_only: leaderEditableOnly}).returning('id').then(function(data){
+    var userArray =[];
+    userArray.push({user_id: Number(req.body.userId), group_id: Number(data[0]), is_leader: true});
+    var wrongArray = ['title', 'permissions', 'description', 'userId'];
+    var isLeader = false;
+    for(var key in req.body){
+
+      if(wrongArray.indexOf(key) === -1){
+        if(req.body[key] === 'leader'){
+          isLeader = true;
+        }
+        if(req.body[key] !== 'none'){
+          userArray.push({user_id: Number(key), group_id: Number(data[0]), is_leader: isLeader});
+        }
+
+      }
+    }
+    knex('users_groups').insert(userArray).then(function(){
+      res.redirect('/users/' + req.params.username);
+    });
+  }).catch(function(err) {
+      next(new Error(err));
+  });
+});
+
+router.post('/:username/groups/:group_id/newtopic', function(req, res, next){
+  knex('topics').insert({group_id: req.params.group_id, title: req.body.title, description: req.body.description, is_old: false})
+  .then(function(){
+    res.redirect('/users/' + req.params.username);
   }).catch(function(err) {
       next(new Error(err));
   });

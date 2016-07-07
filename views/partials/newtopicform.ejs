@@ -2,24 +2,25 @@
 
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
-        <form>
+        <form method = 'post' action = '/users/<%=username%>/groups/<%=groupId%>/newtopic'>
           <label class="pfont">Topic Title</label><br />
-          <input typ="text" class="fullsize">
+          <input type="text" class="fullsize" name = 'title'>
 
           <label class="pfont">Description</label><br />
-          <input typ="text" class="fullsize">
+          <input type="text" class="fullsize" name = 'description'>
 
 
-        </form>
+
       </div>
     </div>
-    
+
   </div>
 
   <div class="row nopad">
     <div class="col-md-4"></div>
     <div class="col-md-4 nopad">
-      <button class="submit nopad">Create</button>
+      <button type = "submit" class="submit nopad">Create1</button>
+      </form>
       <!-- TODO ^^ validate the form -->
     </div>
   </div>
