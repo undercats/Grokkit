@@ -440,6 +440,7 @@ and (max-device-width : 667px) {
 /*loggedin page*/
   .newgroup {
     margin-right: 2em;
+    margin-bottom: -1em;
   }
 
 }
