@@ -77,8 +77,6 @@ router.get('/:username', function(req, res, next) {
                 userInfo: userInfo,
                 newData: newData
             };
-            console.log(allData);
-            console.log(allData.newData[0].topics);
             res.render('loggedin', allData);
         }).catch(function(err) {
             next(new Error(err));
@@ -115,16 +113,19 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                     .then(function(data) {
                         if (data.length > 0) {
                             newData.ratings = [];
+                            var counter = 0
                             for (var i = 0; i < data.length; i++) {
                                 newData.ratings[i] = {};
                                 newData.ratings[i].rating = data[i].rating;
                                 newData.ratings[i].comment = data[i].comment;
                                 newData.ratings[i].commentBy = data[i].username;
+                                counter += data[i].rating;
                             }
-                            res.render('rate', newData);
+                            newData.avgRating = Number(counter / data.length.toFixed(2));
+                            res.render('viewtopic', newData);
                         } else {
                             newData.ratings = null;
-                            res.render('rate', newData);
+                            res.render('viewtopic', newData);
                         }
 
                     });
@@ -166,7 +167,6 @@ router.get('/:username/groups/new', function(req, res, next) {
                 userInfo: userInfo,
                 userList: data
             };
-            console.log(newData);
             res.render('newgroup', newData);
         });
     }).catch(function(err) {
@@ -228,12 +228,18 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next){
     .orderBy('username')
     .then(function(data){
       newData.userList = data;
-      console.log(newData);
       res.render('newgroup', newData);
     })
   }).catch(function(err) {
       next(new Error(err));
   });
+});
+
+router.post('/:username/groups/new', function(req, res, next){
+
+});
+router.post('/:username/groups/:group_id/newtopic', function(req, res, next){
+
 });
 
 module.exports = router;

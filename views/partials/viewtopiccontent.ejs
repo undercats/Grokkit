@@ -1,11 +1,15 @@
 <div class="row">
   <div class="col-md-12 content">
-    <h3>Topic Name</h3>
-     <!-- TODO ^^ replace [topic name] with Actual Topic Name -->
+    <h3><%=topicTitle%></h3>
     <ul class="nopad">
       <li>
+        <%if(ratings !== null){%>
+          <%- include('topicform'); %>
+        <%}else{%>
+          There are no ratings yet for this topic
+          <!-- TODO make this more attractive -->
+        <%}%>
 
-        <%- include('topicform'); %>
 
       </li>
 
