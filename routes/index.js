@@ -34,4 +34,9 @@ router.get('/newtopic', function(req, res, next) {
   res.render('newtopic');
 });
 
+//dummy route
+router.get('/viewtopic', function(req, res, next) {
+  res.render('viewtopic');
+});
+
 module.exports = router;
