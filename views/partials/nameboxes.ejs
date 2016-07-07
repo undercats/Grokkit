@@ -5,47 +5,61 @@
   <radiogroup>
 <%if(userInfo.editType === "edit"){%>
   <%if(is_leader === true){%>
-  <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
-<label for="nocheckbox" class="pfont checks">None</label><br />
+  <label for="nocheckbox<%=user_id%>" class="pfont checks">
+    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">None
+  </label>
 
-  <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">
-<label for="ucheckbox" class="pfont checks">User</label><br />
+  <label for="ucheckbox<%=user_id%>" class="pfont checks">
+    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">User
+  </label>
 
-  <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader" checked = "checked">
-<label for="lcheckbox" class="pfont checks" >Leader</label>
+  <label for="lcheckbox<%=user_id%>" class="pfont checks" >
+    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader" checked = "checked">Leader
+  </label>
 
   <%}else if(is_leader !== undefined && is_leader === false){%>
 
-    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
-  <label for="nocheckbox" class="pfont checks">None</label><br />
+    <label for="nocheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">None
+    </label>
 
-    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user" checked = "checked">
-  <label for="ucheckbox" class="pfont checks" >User</label><br />
+    <label for="ucheckbox<%=user_id%>" class="pfont checks" >
+      <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user" checked = "checked">User
+    </label>
 
-    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">
-  <label for="lcheckbox" class="pfont checks">Leader</label>
+    <label for="lcheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">Leader
+    </label>
 
   <%}else{%>
 
-    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
-  <label for="nocheckbox" class="pfont checks">None</label><br />
+    <label for="nocheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">None
+    </label>
 
-    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">
-  <label for="ucheckbox" class="pfont checks">User</label><br />
+    <label for="ucheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">User
+    </label>
 
-    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">
-  <label for="lcheckbox" class="pfont checks">Leader</label>
+    <label for="lcheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">Leader
+    </label>
+
   <%}%>
+
   <%}else{%>
 
-    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
-  <label for="nocheckbox" class="pfont checks">None</label><br />
+    <label for="nocheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">None
+    </label>
 
-    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">
-  <label for="ucheckbox" class="pfont checks">User</label><br />
+    <label for="ucheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">User
+    </label>
 
-    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">
-  <label for="lcheckbox" class="pfont checks">Leader</label>
+    <label for="lcheckbox<%=user_id%>" class="pfont checks">
+      <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">Leader
+    </label>
 
     <%}%>
 
