@@ -26,7 +26,7 @@
             <!-- TODO ^^google user name goes above^^ -->
           <img src="<%=userInfo.userImage%>" class="circle-img">
             <!-- TODO ^^google user image goes above^^ -->
-          <p><a href="">Logout</a></p>
+          <p><a href="/users/logout">Logout</a></p>
             <!-- TODO^^need to logout the user -->
         </h2>
 
@@ -47,15 +47,16 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 wrapper">
 
-            <h3 class="newgroup"><a href="/users/<%=userInfo.userName%>/groups/new">+ New Group</a></h3>
+
             <%if(newData.length ===0){%>
               <%- include('partials/nogroups'); %>
             <%}else{%>
 
-
+              <h3 class="newgroup"><a href="/users/<%=userInfo.userName%>/groups/new">+ New Group</a></h3>
             <%newData.forEach(function(group){%>
 
               <%if(group.isLeader){%>
+
 
               <%- include('partials/leadergroup', {userInfo: userInfo, group: group}); %>
 

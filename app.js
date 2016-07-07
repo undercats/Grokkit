@@ -16,16 +16,23 @@ require('dotenv').config();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var oauth = require('./routes/oauth');
-var groups = require('./routes/groups');
-var topics = require('./routes/topics');
 
 var app = express();
 
-var googleLoginURI = 'https://accounts.google.com/o/oauth2/v2/auth?scope=email&redirect_uri=' + process.env.MAIN_PATH + '/oauth/google/callback&response_type=code&client_id=239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com';
 
 //initialize passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+//initialize cookie session
+app.use(cookieSession({
+    name: 'Session',
+    keys: [
+        process.env.KEY_ONE,
+        process.env.KEY_TWO,
+        process.env.KEY_THREE
+    ]
+}));
 
 // view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -44,18 +51,20 @@ app.use('/', routes);
 
 passport.serializeUser(function(user, done) {
     //later this will be where you selectively send to the browser an identifier for your user, like their primary key from the database, or their ID from Google
+    console.log('serializeUser');
     done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
     //here is where you will go to the database and get the user each time from it's id, after you set up your db
+    console.log('deserializeUser');
     done(null, obj);
 });
 
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: "/oauth/google/callback"
+        callbackURL: process.env.GOOGLE_CALLBACK_URL
     },
     function(accessToken, refreshToken, profile, cb) {
         console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');

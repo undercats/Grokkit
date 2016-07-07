@@ -366,3 +366,81 @@ span.newgroup {
   float: left;
   width: 48%;
 }
+
+.nogroups {
+  background-color: rgb(45, 45, 43);
+  color: rgb(131, 168, 207);
+  border: none;
+  font-size: 2em;
+  border-radius: 1em;
+  font-family: 'BenchNine', sans-serif;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+#nogroups {
+  text-align: center;
+}
+
+
+
+
+/*iPhone 6 styling*/
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px) {
+
+  .headerlogo {
+    margin-left: 16em;
+    padding-right: 0;
+  }
+
+  .username p {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+
+  .row {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .wrapper {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+/*nogroups page*/
+  .content {
+    margin-top: 5em;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 2em;
+  }
+
+  #nogroups {
+    font-size: 7em;
+    padding-top: 0.5em;
+  }
+
+  .nogroups {
+    margin-top: 0.5em;
+    font-size: 5em;
+  }
+
+/*loggedin page*/
+  .newgroup {
+    margin-right: 2em;
+    margin-bottom: -1em;
+  }
+
+}
