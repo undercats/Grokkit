@@ -20,36 +20,49 @@
 <body>
     <header>
 
-      <div class="username">
-        <h2>
-          <span>User Name</span>
-          <!-- ^^google user name goes above^^ -->
-          <img src="http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg" class="circle-img">
-          <!-- ^^google user image goes above^^ -->
-          <p>Logout</p>
+        <div class="username">
+            <h2>
+          <span><%=userInfo.displayName%></span>
+            <!-- TODO ^^google user name goes above^^ -->
+          <img src="<%=userInfo.userImage%>" class="circle-img">
+            <!-- TODO ^^google user image goes above^^ -->
+          <p><a href="">Logout</a></p>
+            <!-- TODO^^need to logout the user -->
         </h2>
 
-      </div>
+        </div>
     </header>
 
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        <img src="/images/grokkit_logo.png" class="headerlogo nopad">
-      </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <img src="/images/grokkit_logo.png" class="headerlogo nopad">
+        </div>
     </div>
 
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6 wrapper">
-        <%- include('partials/leadergroup'); %>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 wrapper">
 
-        <%- include('partials/usergroup'); %>
-      </div>
+            <h3 class="newgroup"><a href="">+ New Group</a></h3>
+            <!-- TODO ^^ link to newgroup.ejs -->
+            <%newData.forEach(function(group){%>
+
+              <%if(group.isLeader){%>
+
+              <%- include('partials/leadergroup', {userInfo: userInfo, group: group}); %>
+
+              <%}else{%>
+
+              <%- include('partials/usergroup', {userInfo: userInfo, group: group}); %>
+
+              <%}%>
+            <%})%>
+        </div>
 
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
         <ul class="options">
@@ -58,9 +71,10 @@
           <li><a href="">+ Group</a></li>
         </ul>
       </div>
-    </div>
+    </div> -->
 
     <footer>© 2016 Undercats</footer>
 
 </body>
+
 </html>

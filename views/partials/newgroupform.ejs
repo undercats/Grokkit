@@ -9,8 +9,24 @@
           <label class="pfont">Description</label><br />
           <input typ="text" class="fullsize">
 
-          <label class="pfont">Topic Title</label><br />
-          <input typ="text" class="fullsize">
+          <div class="names" id="allow">
+            <label class="pfont">Who can add and remove topics in this group?</label><br />
+            <!-- ^^name of individual group member goes here -->
+
+              <radiogroup>
+
+                <input type="radio" id="nocheckbox" name="permissions" value="" checked="checked">
+                <label for="nocheckbox" class="pfont checks">Leaders</label><br />
+
+                <input type="radio" id="ucheckbox" name="permissions2">
+                <label for="ucheckbox" class="pfont checks">Users</label><br />
+
+            </radiogroup>
+
+
+          </div>
+
+
         </form>
       </div>
     </div>
@@ -36,4 +52,12 @@
       </div>
     </div>
 
+  </div>
+
+  <div class="row nopad">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 nopad">
+      <button class="submit nopad">Create</button>
+      <!-- TODO ^^ validate the form -->
+    </div>
   </div>

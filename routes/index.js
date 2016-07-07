@@ -29,4 +29,9 @@ router.get('/rate', function(req, res, next) {
   res.render('rate');
 });
 
+//dummy route
+router.get('/newtopic', function(req, res, next) {
+  res.render('newtopic');
+});
+
 module.exports = router;

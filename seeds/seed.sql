@@ -1,9 +1,9 @@
-INSERT INTO users (username, email, first_name, last_name, display_name) VALUES
-('Slam', 'slamcooksey@gmail.com', 'Samuel', 'Cooksey', 'Sam Cooksey'),
-('Gabe-o-Matic', 'gamethexton@gmail.com', 'Gabe', 'Thexton', 'Gabe Thexton'),
-('Moris-Less', 'jmorris@gmail.com', 'Jessica', 'Morris', 'Jess Morris'),
-('Iron-Man', 'Tstark@starkmail.com', 'Tony', 'Stark', 'Tony Stark'),
-('Captain-America', 'SteveRogers@1940s.org', 'Steven', 'Rogers', 'Captain America');
+INSERT INTO users (username, email, first_name, last_name, display_name, user_image) VALUES
+('Slam', 'slamcooksey@gmail.com', 'Samuel', 'Cooksey', 'Sam Cooksey', 'http://www.batmandarkknightcostumes.com/images/child-batman-mask.jpg'),
+('Gabe-o-Matic', 'gamethexton@gmail.com', 'Gabe', 'Thexton', 'Gabe Thexton', 'http://logok.org/wp-content/uploads/2014/04/Apple-Logo-rainbow.png'),
+('Moris-Less', 'jmorris@gmail.com', 'Jessica', 'Morris', 'Jess Morris', 'https://pbs.twimg.com/profile_images/2770939513/31605879c72d5738aec6d3a3f6bdb014.gif'),
+('Iron-Man', 'Tstark@starkmail.com', 'Tony', 'Stark', 'Tony Stark', 'http://cdn.s7.shop.marvel.com/is/image/MarvelStore/7200000411ZES?$marveldotcom$'),
+('Captain-America', 'SteveRogers@1940s.org', 'Steven', 'Rogers', 'Captain America', 'http://nerdist.com/wp-content/uploads/2016/05/Captain-America-Shield-322x268.jpg');
 INSERT INTO groups (title, description, leader_editable_only) VALUES
 ('Sam''s Cooking Class', 'Learn how to make all the finest quizine, from Ramen to Popcorn. We may even make quesadillas!', false),
 ('The Gabe Thexton Apple Museum Training Program', 'Be the best GTAM tour guides you can be. After this course you''ll be able to answer any question they throw at you', false ),

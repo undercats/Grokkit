@@ -5,9 +5,8 @@
     <meta name="google-site-verification" content="0YVooz54cSsYj019sMPYFfrIYMf6fkFJO3cuBbvpHR0" />
     <meta name="google-signin-client_id" content="239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="/js/main.js" async defer></script>
     <meta charset="utf-8">
-    <title><%= title %></title>
+    <title>Grokkit: New Group</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -19,35 +18,39 @@
 </head>
 
 <body>
+    <header>
+
+      <div class="username">
+        <h2>
+          <span>User Name</span>
+          <!-- TODO ^^google user name goes above^^ -->
+          <img src="http://d39kbiy71leyho.cloudfront.net/wp-content/uploads/2016/05/09170020/cats-politics-TN.jpg" class="circle-img">
+          <!-- TODO ^^google user image goes above^^ -->
+          <p><a href="">Logout</a></p>
+            <!-- TODO^^need to logout the user -->
+        </h2>
+
+      </div>
+    </header>
 
     <div class="row">
-        <div class="col-md-12 nopad">
-            <header class="nopad">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <img src="/images/grokkit_logo_def.png" class="logo">
-                </div>
-
-            </header>
-        </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <img src="/images/grokkit_logo.png" class="headerlogo nopad">
+      </div>
     </div>
 
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 nopad">
+      <div class="col-md-3"></div>
+      <div class="col-md-6 wrapper">
 
-            <div class="col-md-8">
+        <%- include('partials/newtopicdiv'); %>
 
-                <button class="login"><a href=<%= url %>>Login with Google</a></button>
-                
-            </div>
+      </div>
 
-        </div>
     </div>
-
 
     <footer>© 2016 Undercats</footer>
 
 </body>
-
 </html>

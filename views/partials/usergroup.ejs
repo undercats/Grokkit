@@ -1,13 +1,15 @@
 <div class="row">
   <div class="col-md-12 content">
-    <h3>Class Name</h3>
-    <ul class="nopad">
-      <li>
+    <h3><%=group.title%></h3>
 
-        <%- include('usertopic'); %>
+      <ul class="nopad">
+        <li>
+          <%group.topics.forEach(function(topic){%>
+           <%- include('usertopic', {userInfo: userInfo, topic: topic}); %>
+           <%})%>
+         </li>
 
-      </li>
+       </ul>
 
-    </ul>
   </div>
 </div>
