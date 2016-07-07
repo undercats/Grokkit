@@ -3,37 +3,51 @@
   <!-- ^^name of individual group member goes here -->
 
   <radiogroup>
-<%if(is_leader === true){%>
-  <input type="radio" id="nocheckbox<%=user_id%>" name="permissions<%=user_id%>">
+<%if(userInfo.editType === "edit"){%>
+  <%if(is_leader === true){%>
+  <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
 <label for="nocheckbox" class="pfont checks">None</label><br />
 
-  <input type="radio" id="ucheckbox<%=user_id%>" name="permissions<%=user_id%>">
+  <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%> user">
 <label for="ucheckbox" class="pfont checks">User</label><br />
 
-  <input type="radio" id="lcheckbox<%=user_id%>" name="permissions<%=user_id%>" checked = "checked">
+  <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader" checked = "checked">
 <label for="lcheckbox" class="pfont checks" >Leader</label>
 
-  <%}else if(is_leader === false){%>
-    <input type="radio" id="nocheckbox<%=user_id%>" name="permissions<%=user_id%>">
+  <%}else if(is_leader !== undefined && is_leader === false){%>
+
+    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
   <label for="nocheckbox" class="pfont checks">None</label><br />
 
-    <input type="radio" id="ucheckbox<%=user_id%>" name="permissions<%=user_id%>" checked = "checked">
+    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user" checked = "checked">
   <label for="ucheckbox" class="pfont checks" >User</label><br />
 
-    <input type="radio" id="lcheckbox<%=user_id%>" name="permissions<%=user_id%>">
+    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">
   <label for="lcheckbox" class="pfont checks">Leader</label>
 
-    <%}else{%>
+  <%}else{%>
 
-    <input type="radio" id="nocheckbox<%=user_id%>" name="permissions<%=user_id%>">
+    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
   <label for="nocheckbox" class="pfont checks">None</label><br />
 
-    <input type="radio" id="ucheckbox<%=user_id%>" name="permissions<%=user_id%>">
+    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">
   <label for="ucheckbox" class="pfont checks">User</label><br />
 
-    <input type="radio" id="lcheckbox<%=user_id%>" name="permissions<%=user_id%>">
+    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">
   <label for="lcheckbox" class="pfont checks">Leader</label>
   <%}%>
+  <%}else{%>
+
+    <input type="radio" id="nocheckbox<%=user_id%>" name="<%=user_id%>" value ="none">
+  <label for="nocheckbox" class="pfont checks">None</label><br />
+
+    <input type="radio" id="ucheckbox<%=user_id%>" name="<%=user_id%>" value ="user">
+  <label for="ucheckbox" class="pfont checks">User</label><br />
+
+    <input type="radio" id="lcheckbox<%=user_id%>" name="<%=user_id%>" value ="leader">
+  <label for="lcheckbox" class="pfont checks">Leader</label>
+
+    <%}%>
 
 </radiogroup>
 
