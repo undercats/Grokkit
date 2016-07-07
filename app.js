@@ -81,7 +81,11 @@ passport.use(new GoogleStrategy({
         //databasefunction that finds an existing user or creates a new one.
         findOrCreate(profile, function(err, user) {
             console.log('\nERROR or USER =\n', err || user, '\n');
-            return cb(null, user);
+            if (!err) {
+                return cb(null, user);
+            } else {
+                return cb(err);
+            }
         });
 
     }
@@ -161,24 +165,32 @@ function findOrCreate(profile, cb) {
         })
         .then(function(data) {
             console.log('\ndata IN findOrCreate 1st .then is:\n', data);
-            if (data.length === 1) {
+            if (data.length > 0) {
                 console.log('\nUser Match Found\n', data[0]);
                 //TODO return user profile data
-                cb(null, profile);
-            } else if (data.length <= 0) {
+                return cb(null, profile);
+            } else {
                 console.log('\nNo User Found, Creating\n', data);
                 //TODO make new user in DB and return user profile data
                 var userObj = {
-                    username: data[0].username,
-                    display_name: data[0].display_name,
-                    first_name: data[0].first_name,
-                    last_name: data[0].last_name,
-                    user_image: data[0].user_image,
-                    email: data[0].email
+                    username: profile.username,
+                    display_name: profile.display_name,
+                    first_name: profile.first_name,
+                    last_name: profile.last_name,
+                    user_image: profile.user_image,
+                    email: profile.email
                 };
-                knex('users').insert(userObj);
-                cb(null, profile);
+                console.log('userObj is:\n', userObj);
+                knex('users').insert(userObj).returning('*').then(function(result){
+                    console.log('\nKnex Insert Result is:', result);
+                });
+                console.log('New user added to DB!');
             }
+            return knex('users').where({
+                username: profile.username
+            });
+        }).then(function(data) {
+            cb(null, data);
         }).catch(function(error) {
             console.log('\nNo User Found or Created\n', error);
             cb(error);

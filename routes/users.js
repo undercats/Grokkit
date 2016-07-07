@@ -13,6 +13,7 @@ var knex = require('../db/knex');
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
+
     var newData = [];
     var userInfo = {};
     knex('users').where('username', req.params.username).then(function(data){
@@ -30,6 +31,7 @@ router.get('/:username', function(req, res, next) {
         .select('users.id as user_id', 'username', 'user_image', 'is_leader', 'groups.id as group_id', 'groups.title as group_title', 'groups.description as group_description', 'topics.id as topic_id', 'topics.title as topic_title', 'topics.description as topic_description', 'topics.created_at as topic_created_at', 'is_old', 'groks.rating', 'groks.comment', 'groks.created_at as grok_created_at', 'leader_editable_only', 'display_name', 'first_name', 'last_name')
         .where('users.username', req.params.username).orderBy('group_id').orderBy('topic_id').then(function(data) {
           if(data.length > 0){
+
             var groupCollector = [];
             var counter = 0;
             var counter2;
