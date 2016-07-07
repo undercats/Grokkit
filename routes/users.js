@@ -13,15 +13,18 @@ var knex = require('../db/knex');
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
+    console.log('\nReq params username is: ', req.params.username);
+    if (req.params.username) {
+
+    }
     var newData = [];
     var userInfo = {};
-    console.log('\nReq params username is: ', req.params.username);
     knex('users_groups')
         .leftJoin('users', 'users_groups.user_id', '=', 'users.id')
         .leftJoin('groups', 'users_groups.group_id', '=', 'groups.id')
         .leftJoin('topics', 'topics.group_id', '=', 'groups.id')
         .leftJoin('groks', 'groks.topic_id', '=', 'topics.id')
-        .select('users.id as user_id', 'users.username as user_name', 'user_image', 'is_leader', 'groups.id as group_id', 'groups.title as group_title', 'groups.description as group_description', 'topics.id as topic_id', 'topics.title as topic_title', 'topics.description as topic_description', 'topics.created_at as topic_created_at', 'is_old', 'groks.rating', 'groks.comment', 'groks.created_at as grok_created_at', 'leader_editable_only', 'display_name', 'first_name', 'last_name')
+        .select('users.id as user_id', 'username', 'user_image', 'is_leader', 'groups.id as group_id', 'groups.title as group_title', 'groups.description as group_description', 'topics.id as topic_id', 'topics.title as topic_title', 'topics.description as topic_description', 'topics.created_at as topic_created_at', 'is_old', 'groks.rating', 'groks.comment', 'groks.created_at as grok_created_at', 'leader_editable_only', 'display_name', 'first_name', 'last_name')
         .where('users.username', req.params.username).orderBy('group_id').orderBy('topic_id')
         .then(function(data) {
             console.log('\n Data is:', data);
