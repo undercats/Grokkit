@@ -19,7 +19,7 @@ var oauth = require('./routes/oauth');
 
 var app = express();
 
-var googleLoginURI = 'https://accounts.google.com/o/oauth2/v2/auth?scope=email&redirect_uri=' + process.env.MAIN_PATH + '/oauth/google/callback&response_type=code&client_id=239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com';
+var googleLoginURI = 'https://accounts.google.com/o/oauth2/v2/auth?scope=email&redirect_uri=' + process.env.MAIN_PATH + 'oauth/google/callback&response_type=code&client_id=239915542940-nqg4llnk3ghpa70qudala8fepofgef5o.apps.googleusercontent.com';
 
 //initialize passport
 app.use(passport.initialize());
