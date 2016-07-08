@@ -174,6 +174,7 @@ function findOrCreate(profile, cb) {
             username: profile.username
         })
         .then(function(data) {
+
             console.log('\ndata Entering findOrCreate is:\n', data);
 
             if (data.length > 0) {
