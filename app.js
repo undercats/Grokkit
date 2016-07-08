@@ -84,13 +84,13 @@ passport.use(new GoogleStrategy({
             accessToken: accessToken,
             refreshToken: refreshToken
         };
-        console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
+        console.log('OPTIMIZED PROFILE IS:', optimizedProfile, 'END OPTIMIZED PROFILE');
         //set profile to optimizedProfile
         profile = optimizedProfile;
-        console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
+        console.log('OUTGOING PROFILE IS:', profile, 'END OUTGOING PROFILE\n');
         //databasefunction that finds an existing user or creates a new one.
         findOrCreate(profile, function(err, user) {
-            console.log('\nERROR or USER =\n', err || user, '\n');
+            console.log('ERROR or USER =', err || user, '\n');
             if (!err) {
                 return cb(null, user);
             } else {
@@ -178,11 +178,11 @@ function findOrCreate(profile, cb) {
             console.log('\ndata Entering findOrCreate is:\n', data);
 
             if (data.length > 0) {
-                console.log('\nUser Match Found\n', data[0]);
+                console.log('User Match Found ', data[0]);
                 //TODO return user profile data
                 // return cb(null, data[0]);
             } else {
-                console.log('\nNo User Found, Creating\n', data[0]);
+                console.log('No User Found, Creating ', data[0]);
                 //TODO make new user in DB and return user profile data
                 var userObj = {
                     username: profile.username,
