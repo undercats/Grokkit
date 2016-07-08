@@ -18,13 +18,13 @@ var checkit = require('checkit');
 
 // if user exists then go to user home page
 // /username
-// router.use('/:username', function(req, res, next) {
-//     if (req.session.passport.user.username === req.params.username) {
-//         next();
-//     } else {
-//         res.redirect('/');
-//     }
-// });
+router.use('/:username', function(req, res, next) {
+    if (req.session.passport.user.username === req.params.username) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+});
 router.get('/:username', function(req, res, next) {
 
     var newData = [];
