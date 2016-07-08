@@ -88,12 +88,12 @@ passport.use(new GoogleStrategy({
             accessToken: accessToken,
             refreshToken: refreshToken
         };
-        console.log('REQUEST URL IS:', req.url);
+        // console.log('REQUEST URL IS:', req.url);
         req.session.exist = true;
         // console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
         //set profile to optimizedProfile
         profile = optimizedProfile;
-        console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
+        // console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
         //databasefunction that finds an existing user or creates a new one.
         findOrCreate(profile, function(err, user) {
             console.log('\nERROR or USER =\n', err || user, '\n');
@@ -182,13 +182,13 @@ app.use(function(err, req, res, next) {
 });
 
 function findOrCreate(profile, cb) {
-    console.log('Profile entering findOrCreate is: ', profile);
+    // console.log('Profile entering findOrCreate is: ', profile);
     knex('users').where({
             username: profile.username
         })
         .then(function(data) {
 
-            console.log('\ndata Entering findOrCreate is:\n', data);
+            // console.log('\ndata Entering findOrCreate is:\n', data);
 
             if (data.length > 0) {
                 console.log('\nUser Match Found\n', data[0]);
@@ -205,12 +205,12 @@ function findOrCreate(profile, cb) {
                     user_image: profile.user_image,
                     email: profile.email
                 };
-                console.log('userObj is:\n', userObj);
+                // console.log('userObj is:\n', userObj);
                 knex('users').insert(userObj).returning('*').then(function(result) {
                     console.log('\nKnex Insert Result is:', result);
                     cb(null, result[0]);
                 });
-                console.log('New user added to DB!');
+                // console.log('New user added to DB!');
             }
             // knex('users').where({
             //     username: profile.username
