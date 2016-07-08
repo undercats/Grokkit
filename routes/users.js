@@ -21,12 +21,12 @@ var checkit = require('checkit');
 router.get('/:username', function(req, res, next) {
 
     console.log('req.params =\n', req.params);
-    console.log('req.session =\n', req.session.passport.user);
-    console.log(req.session.passport.user.username);
-    if (req.session.passport.user) {
+    // console.log('req.session =\n', req.session.passport.user);
+    // console.log(req.session.passport.user.username);
+    if (req.session[0].user.username === req.params[0].username) {
     var newData = [];
     var userInfo = {};
-    db('users').where('username', req.params.username).then(function(data) {
+    db('users').where('username', req.params[0].username).then(function(data) {
             userInfo.userId = data[0].id;
             userInfo.userName = data[0].username;
             userInfo.userImage = data[0].user_image;
@@ -187,7 +187,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                         var allData ={
                           newData: newData,
                           err: null
-                        }
+                      };
                         res.render('rate', allData);
                     });
             }
@@ -293,7 +293,7 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
                             newData.err = null;
                             res.render('newgroup', newData);
                         });
-                })
+                });
         }).catch(function(err) {
             next(new Error(err));
         });
@@ -431,7 +431,7 @@ router.post('/:username/topics/:topic_id', function(req, res, next){
                         var allData = {
                           newData: newData,
                           err: err.errors
-                        }
+                      };
                         res.render('rate', allData);
                     });
 
@@ -489,7 +489,7 @@ router.post('/:username/topics/edit/:topic_id', function(req, res, next){
                         var allData = {
                           newData: newData,
                           err: err.errors
-                        }
+                      };
                         console.log(allData.err);
                         res.render('rate', allData);
                     });
@@ -543,7 +543,7 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
                 var allData ={
                   newData: newData,
                   err: err.errors
-                }
+              };
                 res.render('newtopic', allData);
             }).catch(function(err) {
                 next(new Error(err));
