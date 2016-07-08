@@ -126,8 +126,8 @@ router.get('/:username', function(req, res, next) {
         }
     } else {
         console.log('SESSION IS NOT ARRAY');
-        console.log('req.session is:\n', req.session);
-        console.log('req.params is:\n', req.params.constructor, req.params);
+        console.log('req.session.passport.user.username is:\n', req.session.passport.user.username);
+        console.log('req.params.username is:\n', req.params.constructor, req.params.username);
         if (req.session.passport.user.username === req.params.username) {
             var newData = [];
             var userInfo = {};
