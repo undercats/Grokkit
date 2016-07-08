@@ -453,6 +453,18 @@ span.newgroup {
   margin-right: 0.5em;
 }
 
+#centered {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.errorhandler {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin-top: 2em;
+}
+
 /*iPhone 6 styling*/
 
 @media only screen
