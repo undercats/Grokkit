@@ -617,8 +617,14 @@ and (max-device-width : 667px) {
   }
 
   .commentmobile {
-    font-size: 1.7em;
+    font-size: 2em;
     margin-left: 0.5em;
+  }
+
+  .commentinput {
+    margin-left: 0.7em;
+    width: 93%;
+    font-size: 1.5em;
   }
 
   input.commentmobile {

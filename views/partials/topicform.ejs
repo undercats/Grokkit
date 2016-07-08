@@ -20,7 +20,6 @@
             <div class="col-md-12 comments nopad">
 
                 <ul class="comment-list nopad">
-                  <!-- TODO populate with actual comments -->
                   <%ratings.forEach(function(rating){%>
                     <%if(rating.comment !== null){%>
                       <li><%=rating.comment%>
@@ -39,7 +38,9 @@
 <div class="row nopad">
   <div class="col-md-4 nopad"></div>
   <div class="col-md-4 nopad">
-    <button class="submit deletetopic nopad">Update</button>
-    <!-- TODO ^^ update the topic -->
+    <form method = "post" action = "/users/<%=username%>/topics/delete/<%=topicId%>?_method=delete">
+
+    <button type "submit" class="submit deletetopic nopad">Delete Topic</button>
+      </form>
   </div>
 </div>

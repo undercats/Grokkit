@@ -14,5 +14,51 @@
       </li>
 
     </ul>
+    <html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      'use strict';
+      var newData = JSON.parse('<%- stringified %>');
+      console.log(newData);
+      var ratings = newData.ratings;
+      console.log(ratings);
+      var ratingsObj = {};
+      for (var i = 0; i < ratings.length; i++) {
+          if (ratingsObj.hasOwnProperty(ratings[i].rating)) {
+              ratingsObj[ratings[i].rating] += 1;
+          } else {
+              ratingsObj[ratings[i].rating] = 1;
+          }
+
+      }
+      console.log('\nratingsObj is:', ratingsObj);
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+          var ratingsArray = [['Rating', 'Quantity']];
+          console.log('\nratingsObj is:', ratingsObj);
+          for (var pair in ratingsObj) {
+                  console.log('', pair);
+                  var pairKey = pair.toString();
+                  console.log('\npairKey is:\n', pairKey);
+                  ratingsArray.push([pairKey, ratingsObj[pair]]);
+          }
+          console.log('ratingsArray is:', ratingsArray);
+        var data = google.visualization.arrayToDataTable(ratingsArray);
+        var options = {
+          title: 'Breakdown of Likes by Percentage',
+          pieHole: 0.2,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="donutchart" style="width: 500px; height: 300px;"></div>
+  </body>
+</html>
   </div>
 </div>

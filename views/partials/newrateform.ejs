@@ -12,7 +12,13 @@
       <div class="col-md-12 comments nopad">
 
         <div class="names">
+          <%if(myRating === null && myComment === null){%>
+            <form method = "post" action = "/users/<%=username%>/topics/<%=topicId%>">
+          <%}else{%>
+            <form method = "post" action = "/users/<%=username%>/topics/edit/<%=topicId%>">
+          <%}%>
 
+    <input name = "userId" style = "display: none" value = "<%=userId%>">
           <radiogroup>
 
             <label for="nocheckbox" class="pfont">
@@ -26,83 +32,128 @@
       <div id="rate">
         <p id="select">Select the number that corresponds to your understanding of this topic:<br class="notmobile"/>
            <b>0</b> is the lowest, <b>10</b> is the highest level of understanding.</p>
+
         <radiogroup>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="0"><br class="notmobile"/> 0
-              <!-- <p>0</p> -->
+              <input type="radio" class="nums" name="rating" value="0"
+              <%if(myRating === 0){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 0
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="1"><br class="notmobile"/> 1
-              <!-- <p>1</p> -->
+              <input type="radio" class="nums" name="rating" value="1"
+              <%if(myRating === 1){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 1
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="2"><br class="notmobile"/> 2
-              <!-- <p>2</p> -->
+              <input type="radio" class="nums" name="rating" value="2"
+               <%if(myRating === 2){%>
+                 checked = "checked"
+               <%}%><br class="notmobile"/> 2
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="3"><br class="notmobile"/> 3
-              <!-- <p>3</p> -->
+              <input type="radio" class="nums" name="rating" value="3"
+             <%if(myRating === 3){%>
+               checked = "checked"
+             <%}%><br class="notmobile"/> 3
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="4"><br class="notmobile"/> 4
-              <!-- <p>4</p> -->
+              <input type="radio" class="nums" name="rating" value="4"
+                <%if(myRating === 4){%>
+                  checked = "checked"
+                <%}%><br class="notmobile"/> 4
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="5"><br class="notmobile"/> 5
-              <!-- <p>5</p> -->
+              <input type="radio" class="nums" name="rating" value="5"
+              <%if(myRating === 5){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 5
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="6"><br class="notmobile"/> 6
-              <!-- <p>6</p> -->
+              <input type="radio" class="nums" name="rating" value="6"
+              <%if(myRating === 6){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 6
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="7"><br class="notmobile"/> 7
-              <!-- <p>7</p> -->
+              <input type="radio" class="nums" name="rating" value="7"
+              <%if(myRating === 7){%>
+                checked = "checked"
+              <%}%><br "notmobile"/> 7
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="8"><br class="notmobile"/> 8
-              <!-- <p>8</p> -->
+              <input type="radio" class="nums" name="rating" value="8"
+              <%if(myRating === 8){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 8
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="9"><br class="notmobile"/> 9
-              <!-- <p>9</p> -->
+              <input type="radio" class="nums" name="rating" value="9"
+              <%if(myRating === 9){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 9
             </label>
+
           </div>
 
           <div class="col-md-1">
+
             <label>
-              <input type="radio" class="nums" name="rating" value="10"><br class="notmobile"/> 10
-              <!-- <p>10</p> -->
+              <input type="radio" class="nums" name="rating" value="10"
+              <%if(myRating === 10){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 10
             </label>
+
           </div>
 
         </radiogroup>
@@ -112,11 +163,17 @@
 
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
+
         <form>
           <label class="commentmobile">Comment</label><br />
-          <input type="text" value="(Optional)" class="commentmobile">
+          <%if(myComment !== null){%>
+            <input type="text" name="comment" value="<%=myComment%>" class="commentinput">
+          <%}else{%>
+          <input type="text" name="comment" placeholder="(Optional)" class="commentinput">
+          <%}%>
+
           <p id="alert"><b><i>** Your name will be visible to your Group Leaders only if you leave a comment **</i></b></p>
-        </form>
+
       </div>
     </div>
 
@@ -126,7 +183,13 @@
 <div class="row nopad">
   <div class="col-md-4 nopad"></div>
   <div class="col-md-4 nopad">
-    <button class="submit deletetopic nopad">Update</button>
-    <!-- TODO ^^ update the topic -->
+    <button type = "submit deletetopic nopad" class="submit">
+      <%if(myRating === null && myComment === null){%>
+        Submit
+      <%}else{%>
+      Update
+      <%}%>
+    </button>
+    </form>
   </div>
 </div>
