@@ -6,10 +6,13 @@
       </h3>
         <ul class="nopad">
             <li>
+              <%if(group.topics[0].topicId !==null){%>
+
+
                 <%group.topics.forEach(function(topic){%>
                   <%- include('leadertopic', {userInfo: userInfo, topic: topic}); %>
                 <%})%>
-
+                <%}%>
 
             </li>
 
@@ -18,7 +21,9 @@
         <div class="row">
           <div class="col-md-12">
             <div class="col-md-6">
-              <button class="submit delete">Delete Group</button>
+              <form method = "post" action = "/users/<%=userInfo.userName%>/groups/delete/<%=group.groupId%>?_method=delete">
+              <button type = "submit" class="submit delete">Delete Group</button>
+            </form>
             </div>
             <!-- TODO ^^ delete the group -->
             <div class="col-md-6">
@@ -37,7 +42,7 @@
 
         </div>
 
-        
+
 <!-- ABOVE WILL ONLY DISPLAY ON A MOBILE PHONE -->
 
     </div>
