@@ -435,6 +435,24 @@ span.newgroup {
   font-family: 'BenchNine', sans-serif;
 }
 
+.topic {
+  padding:0;
+  margin-left:8.5em;
+  width: 50%;
+  font-size: 2em;
+  background-color: rgb(131, 168, 207);
+  color: rgb(45, 45, 43);
+  border: 3px solid rgb(45, 45, 43);
+  font-family: 'Bangers', fantasy;
+}
+
+.groupdesc {
+  font-size: 0.75em;
+  text-align: left;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+}
+
 /*iPhone 6 styling*/
 
 @media only screen
