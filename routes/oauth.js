@@ -20,7 +20,7 @@ router.get('/google/callback', function(req, res, next) {
         }
         if (!user) {
             console.log('passport.auth NO USER');
-            return res.redirect('/');
+            return res.redirect('www.google.com');
         }
         req.logIn(user, function(err) {
             if (err) {
