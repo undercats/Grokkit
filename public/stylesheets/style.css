@@ -209,6 +209,7 @@ span {
   padding-left: 0.5em;
   padding-right: 0.5em;
   padding-top: 0.5em;
+  margin-left: 1em;
 }
 
 label {
@@ -307,7 +308,7 @@ h5 {
 
 .nums {
   font-size: 2em;
-  width: 100%;
+  width: 0.5em;
   height: 0.5em;
   display: inline-block;
 }
@@ -345,10 +346,6 @@ span.newgroup {
   padding-left: 0.5em;
   color: rgb(134, 38, 23);
   font-family: 'Bangers', fantasy;
-}
-
-.comments p {
-  margin-left: 1em;
 }
 
 .leadertopic {
@@ -438,6 +435,24 @@ span.newgroup {
   font-family: 'BenchNine', sans-serif;
 }
 
+.topic {
+  padding:0;
+  margin-left:8.5em;
+  width: 50%;
+  font-size: 2em;
+  background-color: rgb(131, 168, 207);
+  color: rgb(45, 45, 43);
+  border: 3px solid rgb(45, 45, 43);
+  font-family: 'Bangers', fantasy;
+}
+
+.groupdesc {
+  font-size: 0.75em;
+  text-align: left;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+}
+
 /*iPhone 6 styling*/
 
 @media only screen
@@ -507,8 +522,8 @@ and (max-device-width : 667px) {
   }
 
   .content h3 {
-    padding-top: 1em;
-    padding-left: 1em;
+    padding-top: 0.5em;
+    padding-left: 0.5em;
   }
 
   .newgroup a {
@@ -518,6 +533,10 @@ and (max-device-width : 667px) {
 
   .mobilebreak {
     display: block;
+  }
+
+  .titlecontainer {
+    padding-left:0;
   }
 
   .titlecontainer p {
@@ -560,4 +579,118 @@ and (max-device-width : 667px) {
     font-family: 'Bangers', fantasy;
   }
 
+/*newgroup page*/
+  #newgroupheader {
+    font-size: 4em;
+    padding-top:0.5em;
+  }
+
+  .pfont {
+    font-size: 1.75em;
+  }
+
+  .fullsize {
+    width: 88%;
+  }
+
+  #allow {
+    margin-left:1em;
+    width: 88%;
+  }
+
+  #nocheckbox {
+    width: 10%;
+  }
+
+  #ucheckbox {
+    width: 10%;
+  }
+
+  #selectmobile {
+    font-size: 2em;
+  }
+
+  #selectmobile h5 {
+    font-size:0.7em;
+  }
+
+  #users {
+    margin-left:1em;
+    width: 88%;
+  }
+
+  #users input {
+    width: 20%;
+  }
+
+  .checks {
+    display: block;
+    width: 100%;
+  }
+
+/*rate page*/
+  .comments p {
+    margin-left: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  .commentmobile {
+    font-size: 2em;
+    margin-left: 0.5em;
+  }
+
+  .commentinput {
+    margin-left: 0.7em;
+    width: 93%;
+    font-size: 1.5em;
+  }
+
+  input.commentmobile {
+    width: 93%;
+  }
+
+  .names {
+    margin-left: 0;
+  }
+
+  .notmobile {
+    display: none;
+  }
+
+  .col-md-1 {
+    font-size: 2em;
+    margin-left: 4em;
+  }
+
+  #rate {
+    padding-bottom: 1em;
+  }
+
+  #select {
+    text-align: center;
+    margin-left:0.2em;
+    margin-right: 0.2em;
+    padding-left:0;
+  }
+
+  #alert {
+    text-align: center;
+    margin-left:0;
+    padding-left: 0;
+    font-size: 0.4em;
+    padding-bottom: 2em;
+  }
+
+/*viewtopic page*/
+
+  .comments h4 {
+    padding-top: 0.5em;
+    margin-left: 0.5em;
+    font-size: 1.5em;
+    margin-top: 0;
+  }
+
+  #total {
+    margin-left:0.5em;
+  }
 }

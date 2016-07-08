@@ -21,97 +21,145 @@
     <input name = "userId" style = "display: none" value = "<%=newData.userId%>">
           <radiogroup>
 
-            <label for="nocheckbox" class="pfont checks">Unrated</label>
-            <input type="radio" id="nocheckbox" name="rating" value=null checked="checked"><br />
+            <label for="nocheckbox" class="pfont">
+              <input type="radio" id="nocheckbox" name="rating" value="" checked="checked">Unrated
+            </label>
 
         </radiogroup>
 
       </div><br />
 
       <div id="rate">
-        <p id="select">Select the number that corresponds to your understanding of this topic:<br />
+        <p id="select">Select the number that corresponds to your understanding of this topic:<br class="notmobile"/>
            <b>0</b> is the lowest, <b>10</b> is the highest level of understanding.</p>
 
         <radiogroup>
 
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="0"
-            <%if(newData.myRating === 0){%>
-              checked = "checked"
-            <%}%>><br />
-            <p>0</p>
-          </div>
-          <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="1"
-            <%if(newData.myRating === 1){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>1</p>
-          </div>
-          <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="2"
+            <label>
+              <input type="radio" class="nums" name="rating" value="0"
+              <%if(newData.myRating === 0){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 0
+            </label>
 
-           <%if(newData.myRating === 2){%>
-             checked = "checked"
-           <%}%>>><br />
-            <p>2</p>
           </div>
-          <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="3"
 
-           <%if(newData.myRating === 3){%>
-             checked = "checked"
-           <%}%>>><br />
-            <p>3</p>
-          </div>
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="4"
-            <%if(newData.myRating === 4){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>4</p>
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="1"
+              <%if(newData.myRating === 1){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 1
+            </label>
+
           </div>
+
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="5"
-            <%if(newData.myRating === 5){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>5</p>
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="2"
+               <%if(newData.myRating === 2){%>
+                 checked = "checked"
+               <%}%><br class="notmobile"/> 2
+            </label>
+
           </div>
+
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="6"
-            <%if(newData.myRating === 6){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>6</p>
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="3"
+             <%if(newData.myRating === 3){%>
+               checked = "checked"
+             <%}%><br class="notmobile"/> 3
+            </label>
+
           </div>
+
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="7"
-            <%if(newData.myRating === 7){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>7</p>
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="4"
+                <%if(newData.myRating === 4){%>
+                  checked = "checked"
+                <%}%><br class="notmobile"/> 4
+            </label>
+
+
           </div>
+
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="8"
-            <%if(newData.myRating === 8){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>8</p>
+
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="5"
+              <%if(newDatamyRating === 5){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 5
+            </label>
+
           </div>
+
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="9"
-            <%if(newData.myRating === 9){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>9</p>
+
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="6"
+              <%if(newData.myRating === 6){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 6
+            </label>
+
+
           </div>
+
           <div class="col-md-1">
-            <input type="radio" class="nums" name="rating" value="10"
-            <%if(newData.myRating === 10){%>
-              checked = "checked"
-            <%}%>>><br />
-            <p>10</p>
+
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="7"
+              <%if(newData.myRating === 7){%>
+                checked = "checked"
+              <%}%><br "notmobile"/> 7
+            </label>
+
+          </div>
+
+          <div class="col-md-1">
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="8"
+              <%if(newData.myRating === 8){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 8
+            </label>
+
+
+          </div>
+
+          <div class="col-md-1">
+
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="9"
+              <%if(newData.myRating === 9){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 9
+            </label>
+
+          </div>
+
+          <div class="col-md-1">
+
+            <label>
+              <input type="radio" class="nums" name="rating" value="10"
+              <%if(newData.myRating === 10){%>
+                checked = "checked"
+              <%}%><br class="notmobile"/> 10
+            </label>
+
           </div>
 
         </radiogroup>
@@ -122,12 +170,15 @@
     <div class="row nopad">
       <div class="col-md-12 comments nopad">
 
-          <label>Comment</label><br />
+
+        <form>
+          <label class="commentmobile">Comment</label><br />
           <%if(newData.myComment !== null){%>
-            <input type="text" name = "comment" value = "<%=newData.myComment%>">
+            <input type="text" name="comment" value="<%=myComment%>" class="commentinput">
           <%}else{%>
-          <input type="text" name = "comment" placeholder="(Optional)">
+          <input type="text" name="comment" placeholder="(Optional)" class="commentinput">
           <%}%>
+
           <p id="alert"><b><i>** Your name will be visible to your Group Leaders only if you leave a comment **</i></b></p>
 
       </div>
