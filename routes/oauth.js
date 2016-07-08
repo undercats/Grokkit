@@ -32,7 +32,8 @@ router.get('/google/callback', function(req, res, next) {
             }
             console.log('finally');
             console.log(user);
-            return res.redirect('/users/' + user.username);
+            return res.json(user);
+            // return res.redirect('/users/' + user.username);
         });
     })(req, res, next);
 });
