@@ -23,10 +23,10 @@ router.get('/:username', function(req, res, next) {
     console.log('req.params =\n', req.params);
     // console.log('req.session =\n', req.session.passport.user);
     // console.log(req.session.passport.user.username);
-    if (req.session[0].user.username === req.params[0].username) {
+    if ((req.session[0].user.username === req.params[0].username) || (req.session.user.username === req.params[0].username)) {
     var newData = [];
     var userInfo = {};
-    db('users').where('username', req.params[0].username).then(function(data) {
+    db('users').where('username', req.params.username).then(function(data) {
             userInfo.userId = data[0].id;
             userInfo.userName = data[0].username;
             userInfo.userImage = data[0].user_image;
