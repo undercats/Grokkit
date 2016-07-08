@@ -22,8 +22,8 @@ router.get('/google/callback', function(req, res, next) {
             console.log('passport.auth NO USER');
             return res.redirect('/');
         }
-        console.log('user going into req.login is:\n', user[0]);
-        user = user[0];
+        console.log('user going into req.login is:\n', user);
+        // user = user[0];
         req.logIn(user, function(err) {
             console.log('user[0]');
             if (err) {
