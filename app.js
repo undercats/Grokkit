@@ -96,7 +96,7 @@ passport.use(new GoogleStrategy({
         // console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
         //databasefunction that finds an existing user or creates a new one.
         findOrCreate(profile, function(err, user) {
-            // console.log('\nERROR or USER =\n', err || user, '\n');
+            console.log('\nERROR or USER =\n', err || user, '\n');
             if (!err) {
                 return cb(null, user);
             } else {
@@ -191,7 +191,7 @@ function findOrCreate(profile, cb) {
             // console.log('\ndata Entering findOrCreate is:\n', data);
 
             if (data.length > 0) {
-                // console.log('\nUser Match Found:\n', data[0]);
+                console.log('\nUser Match Found:\n', data[0]);
                 //TODO return user profile data
                 return cb(null, data);
             } else {
@@ -207,7 +207,7 @@ function findOrCreate(profile, cb) {
                 };
                 // console.log('userObj is:\n', userObj);
                 knex('users').insert(userObj).returning('*').then(function(result) {
-                    // console.log('\nKnex Insert Result is:', result);
+                    console.log('\nKnex Insert Result is:', result);
                     cb(null, result[0]);
                 });
                 // console.log('New user added to DB!');
