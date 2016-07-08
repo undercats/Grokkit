@@ -25,6 +25,7 @@ router.get('/:username', function(req, res, next) {
     var session = req.session;
     var isArray = session.constructor === Array;
     if (isArray) {
+        console.log('SESSION IS ARRAY');
         if (req.session[0].user.username === req.params.username) {
         var newData = [];
         var userInfo = {};
@@ -123,6 +124,7 @@ router.get('/:username', function(req, res, next) {
             res.redirect('/');
         }
     } else {
+        console.log('SESSION IS NOT ARRAY');
         if (req.session.user.username === req.params.username) {
         var newData = [];
         var userInfo = {};
