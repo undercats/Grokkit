@@ -26,7 +26,7 @@ router.get('/:username', function(req, res, next) {
     if (req.session[0].user.username === req.params[0].username) {
     var newData = [];
     var userInfo = {};
-    db('users').where('username', req.params.username).then(function(data) {
+    db('users').where('username', req.params[0].username).then(function(data) {
             userInfo.userId = data[0].id;
             userInfo.userName = data[0].username;
             userInfo.userImage = data[0].user_image;
