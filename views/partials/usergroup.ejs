@@ -7,9 +7,11 @@
 
       <ul class="nopad">
         <li>
+          <%if(group.topics.length >0){%>
           <%group.topics.forEach(function(topic){%>
            <%- include('usertopic', {userInfo: userInfo, topic: topic}); %>
            <%})%>
+           <%}%>
          </li>
 
        </ul>
