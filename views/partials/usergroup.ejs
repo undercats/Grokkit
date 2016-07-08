@@ -2,9 +2,7 @@
   <div class="col-md-12 content">
     <h3><%=group.title%>
       <p class="groupdesc"><%=group.description%></p>
-      <%if(!group.leaderEditableOnly){%>
 
-    <%}%>
 </h3>
 
       <ul class="nopad">
@@ -20,8 +18,10 @@
 
 
                <div class="row">
+                 <%if(!group.leaderEditableOnly){%>
+                   <a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic"><button class="submit topic">+ New Topic</button></a>
 
-                     <a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic"><button class="submit topic">+ New Topic</button></a>
+               <%}%>
 
                </div>
 
