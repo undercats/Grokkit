@@ -1,10 +1,10 @@
 <div class="comments-wrapper">
 
   <div class="row nopad">
-      <div class="col-md-12 comments nopad usertopic">
+      <div class="col-md-12 comments nopad usertopic errorhandler">
 
         <%for(var error in err){%>
-        <h3 style = "color: rgb(134, 38, 23)">
+        <h3 style = "color: rgb(134, 38, 23)" id="centered">
 
             <%=err[error].message%>
 
