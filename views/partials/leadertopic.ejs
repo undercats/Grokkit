@@ -10,8 +10,10 @@
             <!-- TODO ^^ link here to take user to leader topic view page-->
           <span class="userrate"><i><b><%=topic.ratings.length%></b> user(s) have rated</i></span>
           <span class="userrate"><i>Comments: <%=topic.commentCount%></i></span>
+          <%if(!isNaN(topic.ratingAverage)){%>
+            <h4>Average Rating: <%=topic.ratingAverage%></h4>
+          <%}%>
 
-          <h4>Average Rating: <%=topic.ratingAverage%></h4>
         </div>
 
         </a>

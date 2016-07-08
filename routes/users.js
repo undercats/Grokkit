@@ -176,14 +176,11 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                         if (data.length > 0) {
                             newData.myRating = data[0].rating;
                             newData.myComment = data[0].comment;
-                            console.log(newData);
-                            res.render('rate', newData);
                         } else {
                             newData.myRating = null;
                             newData.myComment = null;
-                            console.log(newData);
-                            res.render('rate', newData);
                         }
+                        res.render('rate', {newData: newData});
                     });
             }
 
@@ -237,7 +234,8 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next) {
                 groupDescription: data[0].description,
                 leaderEditableOnly: data[0].leader_editable_only
             };
-            res.render('newtopic', newData);
+
+            res.render('newtopic', {newData: newData});
         }).catch(function(err) {
             next(new Error(err));
         });
@@ -341,9 +339,30 @@ router.post('/:username/groups/new', function(req, res, next) {
     });
 
   }).catch(function(err){
-    res.redirect('/users/' + req.params.username + '/groups/new');
+    var userInfo;
+    db('users').where('username', req.params.username).then(function(data) {
+        userInfo = {
+            username: data[0].username,
+            firstName: data[0].first_name,
+            lastName: data[0].last_name,
+            userImage: data[0].user_image,
+            displayName: data[0].display_name,
+            userId: data[0].id
+        };
+    }).then(function() {
+        db('users').whereNot('username', req.params.username).select('id as user_id', 'username', 'email', 'first_name', 'last_name', 'user_image', 'display_name').orderBy('username').then(function(data) {
+            var newData = {
+                userInfo: userInfo,
+                userList: data,
+                err: err.errors
+            };
+            // console.log(newData);
+            console.log(newData.err);
+            res.render('newgroup', newData);
+        });
   });
 
+});
 });
 
 router.post('/:username/topics/:topic_id', function(req, res, next){
@@ -367,7 +386,50 @@ router.post('/:username/topics/:topic_id', function(req, res, next){
         next(new Error(err));
       });
   }).catch(function(err){
-    res.redirect('/users/' + req.params.username + '/topics/' + req.params.topic_id);
+    var newData = {};
+    db('topics')
+        .join('users_groups', 'topics.group_id', '=', 'users_groups.group_id')
+        .join('users', 'users.id', '=', 'users_groups.user_id')
+        .where('topics.id', req.params.topic_id).where('users.username', req.params.username)
+        .then(function(data) {
+            newData.userId = data[0].id;
+            newData.username = data[0].username;
+            newData.userImage = data[0].user_image;
+            newData.firstName = data[0].first_name;
+            newData.lastName = data[0].last_name;
+            newData.displayName = data[0].display_name;
+            newData.isLeader = data[0].is_leader;
+            newData.topicTitle = data[0].title;
+            newData.topicDescription = data[0].description;
+            newData.topicId = req.params.topic_id;
+            newData.groupId = data[0].group_id;
+
+        }).then(function() {
+                db('groks')
+                    .join('users', 'groks.user_id', '=', 'users.id')
+                    .where('username', req.params.username).where('groks.topic_id', req.params.topic_id)
+                    .then(function(data) {
+                        if (data.length > 0) {
+                            newData.myRating = data[0].rating;
+                            newData.myComment = data[0].comment;
+                            console.log(newData);
+                        } else {
+                            newData.myRating = null;
+                            newData.myComment = null;
+                            console.log(newData);
+
+                        }
+                        var allData = {
+                          newData: newData,
+                          err: err.errors
+                        }
+                        res.render('rate', allData);
+                    });
+
+
+        }).catch(function(err) {
+            next(new Error(err));
+        });
   });
 
 });
@@ -384,7 +446,48 @@ router.post('/:username/topics/edit/:topic_id', function(req, res, next){
       next(new Error(err));
     });
   }).catch(function(err){
-    res.redirect('/users/' + req.params.username + '/topics/' + req.params.topic_id);
+    var newData = {};
+    db('topics')
+        .join('users_groups', 'topics.group_id', '=', 'users_groups.group_id')
+        .join('users', 'users.id', '=', 'users_groups.user_id')
+        .where('topics.id', req.params.topic_id).where('users.username', req.params.username)
+        .then(function(data) {
+            newData.userId = data[0].id;
+            newData.username = data[0].username;
+            newData.userImage = data[0].user_image;
+            newData.firstName = data[0].first_name;
+            newData.lastName = data[0].last_name;
+            newData.displayName = data[0].display_name;
+            newData.isLeader = data[0].is_leader;
+            newData.topicTitle = data[0].title;
+            newData.topicDescription = data[0].description;
+            newData.topicId = req.params.topic_id;
+            newData.groupId = data[0].group_id;
+
+        }).then(function() {
+
+                db('groks')
+                    .join('users', 'groks.user_id', '=', 'users.id')
+                    .where('username', req.params.username).where('groks.topic_id', req.params.topic_id)
+                    .then(function(data) {
+                        if (data.length > 0) {
+                            newData.myRating = data[0].rating;
+                            newData.myComment = data[0].comment;
+                        } else {
+                            newData.myRating = null;
+                            newData.myComment = null;
+                        }
+                        var allData = {
+                          newData: newData,
+                          err: err.errors
+                        }
+                        res.render('rate', allData);
+                    });
+
+
+        }).catch(function(err) {
+            next(new Error(err));
+        });
   });
 });
 
@@ -408,7 +511,33 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
             next(new Error(err));
         });
       }).catch(function(err){
-        res.redirect('/users/' + req.params.username + '/groups/' + req.params.group_id + '/newtopic');
+        var newData;
+        db('users')
+            .join('users_groups', 'users.id', '=', 'users_groups.user_id')
+            .join('groups', 'groups.id', '=', 'users_groups.group_id')
+            .where('username', req.params.username).where('groups.id', req.params.group_id)
+            .then(function(data) {
+                newData = {
+                    editType: 'new',
+                    username: data[0].username,
+                    firstName: data[0].first_name,
+                    lastName: data[0].last_name,
+                    userImage: data[0].user_image,
+                    displayName: data[0].display_name,
+                    isLeader: data[0].is_leader,
+                    groupId: data[0].group_id,
+                    groupTitle: data[0].title,
+                    groupDescription: data[0].description,
+                    leaderEditableOnly: data[0].leader_editable_only
+                };
+                var allData ={
+                  newData: newData,
+                  err: err.errors
+                }
+                res.render('newtopic', allData);
+            }).catch(function(err) {
+                next(new Error(err));
+            });
       });
 });
 
@@ -463,8 +592,49 @@ router.post('/:username/groups/edit/:group_id', function(req, res, next) {
             });
     });
   }).catch(function(err){
-    res.redirect('/users/' + req.params.username + '/groups/edit/' + req.params.group_id);
-  });
+    var newData = {};
+    db('users')
+        .join('users_groups', 'users.id', '=', 'users_groups.user_id')
+        .join('groups', 'groups.id', '=', 'users_groups.group_id')
+        .where('username', req.params.username).where('groups.id', req.params.group_id)
+        .then(function(data) {
+            newData.userInfo = {
+                editType: 'edit',
+                username: data[0].username,
+                firstName: data[0].first_name,
+                lastName: data[0].last_name,
+                userImage: data[0].user_image,
+                displayName: data[0].display_name,
+                isLeader: data[0].is_leader,
+                groupId: data[0].group_id,
+                groupTitle: data[0].title,
+                groupDescription: data[0].description,
+                leaderEditableOnly: data[0].leader_editable_only
+            };
+
+        }).then(function() {
+            db('users')
+                .orderBy('username').then(function(data) {
+                    newData.userList = data;
+                    db('users_groups')
+                        .where('users_groups.group_id', req.params.group_id).then(function(data) {
+                            for (var i = 0; i < newData.userList.length; i++) {
+                                newData.userList[i].user_id = newData.userList[i].id;
+                                console.log(newData.userList[i]);
+                                newData.userList[i].is_leader = undefined;
+                                for (var j = 0; j < data.length; j++) {
+                                    if (newData.userList[i].id === data[j].user_id) {
+                                        newData.userList[i].is_leader = data[j].is_leader;
+                                    }
+                                }
+                            }
+                              newData.err = err.errors;
+                            res.render('newgroup', newData);
+                        });
+                });
+        }).catch(function(err) {
+            next(new Error(err));
+        });  });
 });
 
 router.delete('/:username/groups/delete/:group_id', function(req, res, next){
