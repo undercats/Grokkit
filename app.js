@@ -52,8 +52,8 @@ app.use('/', routes);
 
 passport.serializeUser(function(user, done) {
     //later this will be where you selectively send to the browser an identifier for your user, like their primary key from the database, or their ID from Google
-    console.log('serializeUser');
-    console.log(user);
+    // console.log('serializeUser');
+    // console.log(user);
     done(null, user);
 });
 
@@ -191,7 +191,7 @@ function findOrCreate(profile, cb) {
             // console.log('\ndata Entering findOrCreate is:\n', data);
 
             if (data.length > 0) {
-                console.log('\nUser Match Found\n', data[0]);
+                console.log('\nUser Match Found:\n', data[0]);
                 //TODO return user profile data
                 return cb(null, data);
             } else {
