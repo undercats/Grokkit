@@ -23,7 +23,7 @@ router.get('/:username', function(req, res, next) {
     console.log('req.params =\n', req.params);
     console.log('req.session =\n', req.session.passport.user);
     console.log(req.session.passport.user.username);
-    if (req.session.passport.user) {
+    if (req.session.exist) {
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
