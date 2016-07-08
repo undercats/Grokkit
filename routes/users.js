@@ -19,14 +19,11 @@ var checkit = require('checkit');
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
-<<<<<<< HEAD
-    // if (req.params.username === req.session.passport.user.username) {
-=======
+
     console.log('req.params =\n', req.params);
     console.log('req.session =\n', req.session);
     console.log(req.session.passport.user.username);
     if (req.session.passport.user) {
->>>>>>> a74546d95ef467091ffc77f3caf2e1ef1b0c03a2
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
@@ -120,9 +117,9 @@ router.get('/:username', function(req, res, next) {
         .catch(function(err) {
             next(new Error(err));
         });
-    // } else {
-    //     res.redirect('/');
-    // }
+    } else {
+        res.redirect('/');
+    }
 });
 
 // if user does not exist then add to database and go to user home page
