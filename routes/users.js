@@ -110,6 +110,7 @@ router.get('/:username', function(req, res, next) {
                             userInfo: userInfo,
                             newData: newData
                         };
+                        console.log(allData.newData[4]);
                         res.render('loggedin', allData);
                     });
 
