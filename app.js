@@ -53,13 +53,14 @@ app.use('/', routes);
 passport.serializeUser(function(user, done) {
     //later this will be where you selectively send to the browser an identifier for your user, like their primary key from the database, or their ID from Google
     console.log('serializeUser');
+    console.log(user);
     done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-    knex('users').where({
-        username: profile.username
-    });
+    // knex('users').where({
+    //     username: profile.username
+    // });
     console.log('deserializeUser');
     done(null, obj);
 });
@@ -70,8 +71,8 @@ passport.use(new GoogleStrategy({
         callbackURL: process.env.GOOGLE_CALLBACK_URL,
         passReqToCallback: true
     },
-    function(request, accessToken, refreshToken, profile, cb) {
-        console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
+    function(req, accessToken, refreshToken, profile, cb) {
+        // console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
         //simplify some data
         var emailAddress = profile.emails[0].value;
         var userName = emailAddress.substring(0, emailAddress.indexOf('@'));
@@ -87,7 +88,9 @@ passport.use(new GoogleStrategy({
             accessToken: accessToken,
             refreshToken: refreshToken
         };
-        console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
+        console.log('REQUEST URL IS:', req.url);
+        req.session.exist = true;
+        // console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
         //set profile to optimizedProfile
         profile = optimizedProfile;
         console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
@@ -103,6 +106,8 @@ passport.use(new GoogleStrategy({
 
     }
 ));
+
+
 
 app.use('/oauth', oauth);
 
@@ -187,7 +192,7 @@ function findOrCreate(profile, cb) {
             if (data.length > 0) {
                 console.log('\nUser Match Found\n', data[0]);
                 //TODO return user profile data
-                // return cb(null, data[0]);
+                return cb(null, data);
             } else {
                 console.log('\nNo User Found, Creating\n', data[0]);
                 //TODO make new user in DB and return user profile data
@@ -202,14 +207,13 @@ function findOrCreate(profile, cb) {
                 console.log('userObj is:\n', userObj);
                 knex('users').insert(userObj).returning('*').then(function(result) {
                     console.log('\nKnex Insert Result is:', result);
+                    cb(null, result[0]);
                 });
                 console.log('New user added to DB!');
             }
-            knex('users').where({
-                username: profile.username
-            });
-        }).then(function(data) {
-            cb(null, data);
+            // knex('users').where({
+            //     username: profile.username
+            // });
         }).catch(function(error) {
             console.log('\nNo User Found or Created\n', error);
             cb(error);
