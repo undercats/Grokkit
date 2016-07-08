@@ -193,7 +193,7 @@ function findOrCreate(profile, cb) {
             if (data.length > 0) {
                 // console.log('\nUser Match Found:\n', data[0]);
                 //TODO return user profile data
-                return cb(null, data);
+                return cb(null, data[0]);
             } else {
                 console.log('\nNo User Found, Creating\n', data[0]);
                 //TODO make new user in DB and return user profile data
