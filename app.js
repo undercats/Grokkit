@@ -65,7 +65,8 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL
+        callbackURL: process.env.GOOGLE_CALLBACK_URL,
+        passReqToCallback: true
     },
     function(accessToken, refreshToken, profile, cb) {
         console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
@@ -193,7 +194,7 @@ function findOrCreate(profile, cb) {
                     email: profile.email
                 };
                 console.log('userObj is:\n', userObj);
-                knex('users').insert(userObj).returning('*').then(function(result){
+                knex('users').insert(userObj).returning('*').then(function(result) {
                     console.log('\nKnex Insert Result is:', result);
                 });
                 console.log('New user added to DB!');
