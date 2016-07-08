@@ -24,7 +24,7 @@
         <h2>
           <span><%=userInfo.displayName%></span>
           <img src="<%=userInfo.userImage%>" class="circle-img">
-          <p><a href="/users/logout">Logout</a></p>
+          <p><a href="/logout">Logout</a></p>
             <!-- TODO^^need to logout the user -->
         </h2>
 
@@ -37,7 +37,9 @@
         <a href="/users/<%=userInfo.username%>"><img src="/images/grokkit_logo.png" class="headerlogo nopad"></a>
       </div>
     </div>
-
+    <%if(err !== null){%>
+      <%- include('partials/errorhandler'); %>
+    <%}%>
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6 wrapper">

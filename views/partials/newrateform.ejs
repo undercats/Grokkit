@@ -95,7 +95,7 @@
 
             <label>
               <input type="radio" class="nums" name="rating" value="5"
-              <%if(newDatamyRating === 5){%>
+              <%if(newData.myRating === 5){%>
                 checked = "checked"
               <%}%><br class="notmobile"/> 5
             </label>
@@ -174,7 +174,7 @@
         <form>
           <label class="commentmobile">Comment</label><br />
           <%if(newData.myComment !== null){%>
-            <input type="text" name="comment" value="<%=myComment%>" class="commentinput">
+            <input type="text" name="comment" value="<%=newData.myComment%>" class="commentinput">
           <%}else{%>
           <input type="text" name="comment" placeholder="(Optional)" class="commentinput">
           <%}%>

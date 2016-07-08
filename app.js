@@ -108,6 +108,10 @@ app.use('/oauth', oauth);
 
 app.use('/users', users);
 
+app.get('/logout', function(req, res, next) {
+    req.session = null;
+    res.redirect('/');
+});
 // app.use('/oauth2callback', oauth);
 // app.use('/groups', groups);
 // app.use('/topics', topics);

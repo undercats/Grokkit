@@ -24,19 +24,23 @@
         <h2>
           <span><%=newData.displayName%></span>
           <img src="<%=newData.userImage%>" class="circle-img">
-          <p><a href="/users/logout">Logout</a></p>
+          <p><a href="/logout">Logout</a></p>
 
         </h2>
 
       </div>
     </header>
 
+
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <a href="/users/<%=username%>"><img src="/images/grokkit_logo.png" class="headerlogo nopad"></a>
+        <a href="/users/<%=newData.username%>"><img src="/images/grokkit_logo.png" class="headerlogo nopad"></a>
       </div>
     </div>
+    <%if(err !== null){%>
+      <%- include('partials/errorhandler'); %>
+    <%}%>
 
     <div class="row">
       <div class="col-md-3"></div>

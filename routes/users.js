@@ -180,7 +180,11 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                             newData.myRating = null;
                             newData.myComment = null;
                         }
-                        res.render('rate', {newData: newData});
+                        var allData ={
+                          newData: newData,
+                          err: null
+                        }
+                        res.render('rate', allData);
                     });
             }
 
@@ -207,6 +211,7 @@ router.get('/:username/groups/new', function(req, res, next) {
                 userList: data
             };
             // console.log(newData);
+            newData.err = null;
             res.render('newgroup', newData);
         });
     }).catch(function(err) {
@@ -234,8 +239,11 @@ router.get('/:username/groups/:group_id/newtopic', function(req, res, next) {
                 groupDescription: data[0].description,
                 leaderEditableOnly: data[0].leader_editable_only
             };
-
-            res.render('newtopic', {newData: newData});
+              var allData ={
+                newData: newData,
+                err: null
+              };
+            res.render('newtopic', allData);
         }).catch(function(err) {
             next(new Error(err));
         });
@@ -278,7 +286,7 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
                                     }
                                 }
                             }
-
+                            newData.err = null;
                             res.render('newgroup', newData);
                         });
                 })
@@ -286,10 +294,7 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
             next(new Error(err));
         });
 });
-router.get('/logout', function(req, res, next) {
-    req.session = null;
-    res.redirect('/');
-});
+
 router.post('/:username/groups/new', function(req, res, next) {
   var check = new checkit({
     title: ['required', 'maxLength:255'],
@@ -481,6 +486,7 @@ router.post('/:username/topics/edit/:topic_id', function(req, res, next){
                           newData: newData,
                           err: err.errors
                         }
+                        console.log(allData.err);
                         res.render('rate', allData);
                     });
 
