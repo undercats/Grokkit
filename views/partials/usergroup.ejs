@@ -7,11 +7,15 @@
 
       <ul class="nopad">
         <li>
-          <%if(group.topics.length >0){%>
+
           <%group.topics.forEach(function(topic){%>
+            <%if(topic.topicId !== null){%>
            <%- include('usertopic', {userInfo: userInfo, topic: topic}); %>
-           <%})%>
+           <%}else{%>
+             There are no topics for this group
            <%}%>
+           <%})%>
+
          </li>
 
        </ul>
@@ -19,7 +23,7 @@
 
 
 
-              
+
 
                  <%if(!group.leaderEditableOnly){%>
                 <div class="row">

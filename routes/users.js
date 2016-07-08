@@ -18,13 +18,13 @@ var checkit = require('checkit');
 
 // if user exists then go to user home page
 // /username
-router.use('/:username', function(req, res, next) {
-    if (req.session.passport.user.username === req.params.username) {
-        next();
-    } else {
-        res.redirect('/');
-    }
-});
+// router.use('/:username', function(req, res, next) {
+//     if (req.session.passport.user.username === req.params.username) {
+//         next();
+//     } else {
+//         res.redirect('/');
+//     }
+// });
 router.get('/:username', function(req, res, next) {
 
     var newData = [];
@@ -111,6 +111,7 @@ router.get('/:username', function(req, res, next) {
                             userInfo: userInfo,
                             newData: newData
                         };
+                        console.log(allData.newData[4]);
                         res.render('loggedin', allData);
                     });
 
@@ -122,7 +123,7 @@ router.get('/:username', function(req, res, next) {
         .catch(function(err) {
             next(new Error(err));
         });
-        
+
 });
 
 router.get('/:username/topics/:topic_id', function(req, res, next) {
