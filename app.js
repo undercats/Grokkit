@@ -57,7 +57,9 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(obj, done) {
-    //here is where you will go to the database and get the user each time from it's id, after you set up your db
+    knex('users').where({
+        username: profile.username
+    });
     console.log('deserializeUser');
     done(null, obj);
 });
@@ -65,9 +67,10 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL
+        callbackURL: process.env.GOOGLE_CALLBACK_URL,
+        passReqToCallback: true
     },
-    function(accessToken, refreshToken, profile, cb) {
+    function(request, accessToken, refreshToken, profile, cb) {
         console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
         //simplify some data
         var emailAddress = profile.emails[0].value;
@@ -193,7 +196,7 @@ function findOrCreate(profile, cb) {
                     email: profile.email
                 };
                 console.log('userObj is:\n', userObj);
-                knex('users').insert(userObj).returning('*').then(function(result){
+                knex('users').insert(userObj).returning('*').then(function(result) {
                     console.log('\nKnex Insert Result is:', result);
                 });
                 console.log('New user added to DB!');
