@@ -20,8 +20,8 @@ var checkit = require('checkit');
 // /username
 router.get('/:username', function(req, res, next) {
 
-    console.log('req.params =\n', req.params || 'error');
-    console.log('req.session =\n', req.session.passport.user || 'error');
+    // console.log('req.params =\n', req.params || 'error');
+    // console.log('req.session =\n', req.session.passport.user || 'error');
     var session = req.session;
     var isArray = session.constructor === Array;
     if (isArray) {
