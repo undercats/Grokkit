@@ -91,7 +91,6 @@ router.get('/:username', function(req, res, next) {
                         userInfo: userInfo,
                         newData: newData
                     };
-                    console.log(allData.newData[2].topics);
                     res.render('loggedin', allData);
 
                 });
