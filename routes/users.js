@@ -22,7 +22,7 @@ var check = new checkit({
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
-    if (req.params.username === req.session.passport.user.username) {
+    // if (req.params.username === req.session.passport.user.username) {
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
@@ -99,9 +99,9 @@ router.get('/:username', function(req, res, next) {
         .catch(function(err) {
             next(new Error(err));
         });
-    } else {
-        res.redirect('/');
-    }
+    // } else {
+    //     res.redirect('/');
+    // }
 });
 
 // if user does not exist then add to database and go to user home page
@@ -146,13 +146,12 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                                 counter += data[i].rating;
                             }
                             newData.avgRating = Number(counter / data.length.toFixed(2));
-                            console.log(newData);
-                            res.render('viewtopic', newData);
+                            newData.stringified = JSON.stringify(newData);
                         } else {
                             newData.ratings = null;
-                            console.log(newData);
-                            res.render('viewtopic', newData);
+                            newData.stringified = JSON.stringify({});
                         }
+                        res.render('viewtopic', newData);
 
                     });
             } else {
