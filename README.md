@@ -12,4 +12,8 @@ Grokkit is mobile-friendly as well:
 ![](images/mobile_homepg.png)
 ![](images/newtopic.png)
 
+The Grokkit logo was created in Adobe Illustrator by Jess Morris.
+
+![](images/logo.png)
+
 Our group focused on "user-friendly" when we considered the design. We used HTML/CSS, Bootstrap, JavaScript; our API is Google Charts. The OAuth is handled with Google Plus. As a group, we prioritized communication and found that that significantly contributed to a positive workflow.

@@ -26,6 +26,7 @@ router.use('/:username', function(req, res, next) {
     }
 });
 router.get('/:username', function(req, res, next) {
+
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
@@ -116,11 +117,13 @@ router.get('/:username', function(req, res, next) {
 
 
 
+
                 });
         })
         .catch(function(err) {
             next(new Error(err));
         });
+        
 });
 
 router.get('/:username/topics/:topic_id', function(req, res, next) {

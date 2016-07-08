@@ -443,8 +443,7 @@ span.newgroup {
 
 .topic {
   padding:0;
-  margin-left:8.5em;
-  width: 50%;
+  width: 100%;
   font-size: 2em;
   background-color: rgb(131, 168, 207);
   color: rgb(45, 45, 43);
