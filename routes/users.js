@@ -8,11 +8,7 @@ require('dotenv').config();
 var environment = process.env.NODE_ENV || 'development';
 var db = knex(config[environment]);
 var checkit = require('checkit');
-var check = new checkit({
-  title: ['required', 'maxLength:255'],
-  description: ['required', 'maxLength:255'],
-  comment: 'maxLength:255'
-});
+
 
 
 
@@ -23,10 +19,11 @@ var check = new checkit({
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
-    if (req.params.username === req.session.passport.user.username) {
+    // if (req.params.username === req.session.passport.user.username) {
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
+            userInfo.userId = data[0].id;
             userInfo.userName = data[0].username;
             userInfo.userImage = data[0].user_image;
             userInfo.firstName = data[0].first_name;
@@ -83,25 +80,42 @@ router.get('/:username', function(req, res, next) {
                                     for (var l = 0; l < newData[j].topics[k].ratings.length; l++) {
                                         ratingsTotal += newData[j].topics[k].ratings[l];
                                     }
+                                    newData[j].topics[k].myRating = null;
                                     newData[j].topics[k].ratingAverage = Number((ratingsTotal / newData[j].topics[k].ratings.length).toFixed(2));
                                 }
                             }
                         }
                     }
-                    var allData = {
-                        userInfo: userInfo,
-                        newData: newData
-                    };
-                    res.render('loggedin', allData);
+
+
+                    db('groks').where('user_id', userInfo.userId).then(function(data){
+                      console.log(data);
+                      for(var i = 0; i< data.length; i++){
+                        var topic = data[i].topic_id;
+                        for(var j = 0; j < newData.length; j++){
+                          for(var k = 0; k < newData[j].topics.length; k++){
+                            if(newData[j].topics[k].topicId === topic){
+                              newData[j].topics[k].myRating = data[i].rating;
+                            }
+                          }
+                        }
+                      }
+                      var allData = {
+                          userInfo: userInfo,
+                          newData: newData
+                      };
+                      res.render('loggedin', allData);
+                    });
+
 
                 });
         })
         .catch(function(err) {
             next(new Error(err));
         });
-    } else {
-        res.redirect('/');
-    }
+    // } else {
+    //     res.redirect('/');
+    // }
 });
 
 // if user does not exist then add to database and go to user home page
@@ -266,8 +280,7 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
                                     }
                                 }
                             }
-                            console.log(data);
-                            console.log(newData);
+
                             res.render('newgroup', newData);
                         });
                 })
@@ -280,6 +293,10 @@ router.get('/logout', function(req, res, next) {
     res.redirect('/');
 });
 router.post('/:username/groups/new', function(req, res, next) {
+  var check = new checkit({
+    title: ['required', 'maxLength:255'],
+    description: ['required', 'maxLength:255']
+  });
   check.run(req.body).then(function(validated){
   }).then(function(){
     var leaderEditableOnly = true;
@@ -330,31 +347,55 @@ router.post('/:username/groups/new', function(req, res, next) {
 });
 
 router.post('/:username/topics/:topic_id', function(req, res, next){
+  var check = new checkit({
+    comment: 'maxLength:255'
+  });
   check.run(req.body).then(function(validated){
-    var comment = req.body.comment || null;
-    db('groks').insert({user_id: Number(req.body.userId) , topic_id: req.params.topic_id, rating: req.body.rating, comment: comment}).then(function(){
+    console.log(req.body);
+    var insertObj = {};
+    insertObj.user_id = Number(req.body.userId);
+    insertObj.topic_id = req.params.topic_id;
+    insertObj.comment = req.body.comment || null;
+
+    if(req.body.rating !== 'null'){
+      insertObj.rating = req.body.rating;
+    }
+
+    db('groks').insert(insertObj).then(function(){
       res.redirect('/users/' + req.params.username);
     }).catch(function(err) {
         next(new Error(err));
       });
   }).catch(function(err){
-    console.log(err);
     res.redirect('/users/' + req.params.username + '/topics/' + req.params.topic_id);
   });
 
 });
 
 router.post('/:username/topics/edit/:topic_id', function(req, res, next){
-  console.log(req.body);
+  var check = new checkit({
+    comment: 'maxLength:255'
+  });
+  check.run(req.body).then(function(validated){
   var comment = req.body.comment || null;
   db('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.params.topic_id).update({rating: req.body.rating, comment: comment}).then(function(){
     res.redirect('/users/' + req.params.username);
   }).catch(function(err) {
       next(new Error(err));
     });
+  }).catch(function(err){
+    res.redirect('/users/' + req.params.username + '/topics/' + req.params.topic_id);
+  });
 });
 
 router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
+  var check = new checkit({
+    title: ['required', 'maxLength:255'],
+    description: ['required', 'maxLength:255']
+  });
+  check.run(req.body).then(function(validated){
+
+
     db('topics').insert({
             group_id: req.params.group_id,
             title: req.body.title,
@@ -366,11 +407,21 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
         }).catch(function(err) {
             next(new Error(err));
         });
+      }).catch(function(err){
+        res.redirect('/users/' + req.params.username + '/groups/' + req.params.group_id + '/newtopic');
+      });
 });
 
 
 
 router.post('/:username/groups/edit/:group_id', function(req, res, next) {
+  var check = new checkit({
+    title: ['required', 'maxLength:255'],
+    description: ['required', 'maxLength:255']
+  });
+  check.run(req.body).then(function(validated){
+
+
     var leaderEditableOnly = true;
     if (req.body.permissions === 'user') {
         leaderEditableOnly = false;
@@ -411,6 +462,9 @@ router.post('/:username/groups/edit/:group_id', function(req, res, next) {
                 res.redirect('/users/' + req.params.username);
             });
     });
+  }).catch(function(err){
+    res.redirect('/users/' + req.params.username + '/groups/edit/' + req.params.group_id);
+  });
 });
 
 router.delete('/:username/groups/delete/:group_id', function(req, res, next){

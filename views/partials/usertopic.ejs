@@ -8,9 +8,11 @@
           <div class="titlecontainer">
             <h3 class="titleclass"><%=topic.title%></h3>
               <!-- TODO ^^ link here to take user to user topic view page aka rate.ejs-->
-
-              <span class="yourrating"><i>Your rating: <b></b></i></span>
+              <%if(topic.myRating !== null){%>
+              <span class="yourrating"><i>Your rating: <%=topic.myRating%><b></b></i></span>
+              <%}else{%>
               <span class="yourrating"><i>Rate this topic</i></span>
+              <%}%>
               <p><%=topic.description%></p>
 
             </div>
