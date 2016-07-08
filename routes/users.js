@@ -22,7 +22,8 @@ router.get('/:username', function(req, res, next) {
 
     console.log('req.params =\n', req.params || 'error');
     console.log('req.session =\n', req.session.passport.user || 'error');
-    if (req.session.isArray()) {
+    var sessionArray = req.session.isArray();
+    if (sessionArray) {
         if (req.session[0].user.username === req.params.username) {
         var newData = [];
         var userInfo = {};
