@@ -25,7 +25,8 @@ var check = new checkit({
 router.get('/:username', function(req, res, next) {
     console.log('req.params =\n', req.params);
     console.log('req.session =\n', req.session);
-    if (req.params.username === req.session.passport.user.username) {
+    console.log(req.session.passport.user[0].username);
+    if (req.session.passport.user) {
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
