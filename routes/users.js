@@ -127,7 +127,7 @@ router.get('/:username', function(req, res, next) {
         console.log('SESSION IS NOT ARRAY');
         console.log('req.session is:\n', req.session);
         console.log('req.params is:\n', req.params);
-        if (req.session.user.username === req.params.username) {
+        if (req.session.passport.user.username === req.params.username) {
         var newData = [];
         var userInfo = {};
         db('users').where('username', req.params.username).then(function(data) {
