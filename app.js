@@ -173,7 +173,8 @@ function findOrCreate(profile, cb) {
             username: profile.username
         })
         .then(function(data) {
-            console.log('\ndata IN findOrCreate 1st .then is:\n', data);
+            console.log('\ndata Entering findOrCreate is:\n', data);
+            
             if (data.length > 0) {
                 console.log('\nUser Match Found\n', data[0]);
                 //TODO return user profile data

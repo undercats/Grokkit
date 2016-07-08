@@ -136,11 +136,12 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                                 counter += data[i].rating;
                             }
                             newData.avgRating = Number(counter / data.length.toFixed(2));
-                            res.render('viewtopic', newData);
+                            newData.stringified = JSON.stringify(newData);
                         } else {
                             newData.ratings = null;
-                            res.render('viewtopic', newData);
+                            newData.stringified = JSON.stringify({});
                         }
+                        res.render('viewtopic', newData);
 
                     });
             } else {
