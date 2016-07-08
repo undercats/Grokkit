@@ -91,7 +91,6 @@ router.get('/:username', function(req, res, next) {
                         userInfo: userInfo,
                         newData: newData
                     };
-                    console.log(allData.newData[2].topics);
                     res.render('loggedin', allData);
 
                 });
@@ -330,17 +329,17 @@ router.post('/:username/groups/new', function(req, res, next) {
 });
 
 router.post('/:username/topics/:topic_id', function(req, res, next){
-  // check.run(req.body).then(function(validated){
-  //
-  // }).catch(function(err){
-  //   console.log(err);
-  // })
-  var comment = req.body.comment || null;
-  db('groks').insert({user_id: Number(req.body.userId) , topic_id: req.params.topic_id, rating: req.body.rating, comment: comment}).then(function(){
-    res.redirect('/users/' + req.params.username);
-  }).catch(function(err) {
-      next(new Error(err));
-    });
+  check.run(req.body).then(function(validated){
+    var comment = req.body.comment || null;
+    db('groks').insert({user_id: Number(req.body.userId) , topic_id: req.params.topic_id, rating: req.body.rating, comment: comment}).then(function(){
+      res.redirect('/users/' + req.params.username);
+    }).catch(function(err) {
+        next(new Error(err));
+      });
+  }).catch(function(err){
+    console.log(err);
+  })
+
 });
 
 router.post('/:username/topics/edit/:topic_id', function(req, res, next){
