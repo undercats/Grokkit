@@ -9,9 +9,11 @@
         <li>
 
           <%group.topics.forEach(function(topic){%>
-
+            <%if(topic.topicId !== null){%>
            <%- include('usertopic', {userInfo: userInfo, topic: topic}); %>
-
+           <%}else{%>
+             There are no topics for this group
+           <%}%>
            <%})%>
 
          </li>
@@ -22,12 +24,9 @@
 
 
                <div class="row">
-
                  <%if(!group.leaderEditableOnly){%>
-                   <div class="col-md-4"></div>
-                   <div class="col-md-4">
-                     <a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic"><button class="submit topic">+ New Topic</button></a>
-                   </div>
+                   <a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic"><button class="submit topic">+ New Topic</button></a>
+
                <%}%>
 
                </div>
