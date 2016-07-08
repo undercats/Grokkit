@@ -96,7 +96,7 @@ passport.use(new GoogleStrategy({
         // console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
         //databasefunction that finds an existing user or creates a new one.
         findOrCreate(profile, function(err, user) {
-            console.log('\nERROR or USER =\n', err || user, '\n');
+            // console.log('\nERROR or USER =\n', err || user, '\n');
             if (!err) {
                 return cb(null, user);
             } else {
