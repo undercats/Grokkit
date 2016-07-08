@@ -20,9 +20,9 @@ var checkit = require('checkit');
 // /username
 router.get('/:username', function(req, res, next) {
 
-    console.log('req.params =\n', req.params);
-    console.log('req.session =\n', req.session.passport.user);
-    console.log(req.session.passport.user.username);
+    // console.log('req.params =\n', req.params);
+    // console.log('req.session =\n', req.session.passport.user);
+    // console.log(req.session.passport.user.username);
     if (req.session.passport.user === req.params.username) {
     var newData = [];
     var userInfo = {};
@@ -448,7 +448,12 @@ router.post('/:username/topics/edit/:topic_id', function(req, res, next){
   });
   check.run(req.body).then(function(validated){
   var comment = req.body.comment || null;
-  db('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.params.topic_id).update({rating: req.body.rating, comment: comment}).then(function(){
+  var updateObj ={};
+    updateObj.comment = comment;
+    if(req.body.rating !== 'null'){
+      updateObj.rating = req.body.rating;
+    }
+  db('groks').where('user_id', Number(req.body.userId)).where('topic_id', req.params.topic_id).update(updateObj).then(function(){
     res.redirect('/users/' + req.params.username);
   }).catch(function(err) {
       next(new Error(err));
