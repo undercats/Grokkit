@@ -15,28 +15,28 @@ router.get('/google/callback', function(req, res, next) {
     console.log('google callback');
     passport.authenticate('google', function(err, user, info) {
         if (err) {
-            console.log('passport.auth ERR', err);
+            // console.log('passport.auth ERR', err);
             return next(err);
         }
         if (!user) {
             console.log('passport.auth NO USER');
             return res.redirect('/');
         }
-        console.log('user going into req.login is:\n', user);
+        // console.log('user going into req.login is:\n', user);
         // user = user[0];
         req.logIn(user, function(err) {
-            console.log('user[0]');
+            // console.log('user[0]');
             if (err) {
-                console.log('req.login ERR', err);
+                // console.log('req.login ERR', err);
                 return next(err);
             }
-            console.log('finally');
-            console.log(user);
+            // console.log('finally');
+            // console.log(user);
             // return res.json(user);
             if (user.username) {
                 return res.redirect('/users/' + user.username);
             } else if (user[0].username) {
-                return res.redirect('/users/' + user[0].username);            
+                return res.redirect('/users/' + user[0].username);
             }
 
         });
