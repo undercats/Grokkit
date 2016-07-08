@@ -93,7 +93,6 @@ router.get('/:username', function(req, res, next) {
 
 
                     db('groks').where('user_id', userInfo.userId).then(function(data){
-                      console.log(data);
                       for(var i = 0; i< data.length; i++){
                         var topic = data[i].topic_id;
                         for(var j = 0; j < newData.length; j++){
