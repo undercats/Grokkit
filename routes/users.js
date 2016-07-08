@@ -20,10 +20,10 @@ var checkit = require('checkit');
 // /username
 router.get('/:username', function(req, res, next) {
 
-    console.log('req.params =\n', req.params);
-    // console.log('req.session =\n', req.session.passport.user);
-    // console.log(req.session.passport.user.username);
-    if ((req.session[0].user.username === req.params[0].username) || (req.session.user.username === req.params.username)) {
+    console.log('req.params =\n', req.params || 'error');
+    console.log('req.session =\n', req.session.passport.user || 'error');
+    console.log(req.session.passport.user.username || 'error');
+    if (req.session[0].user.username === req.params[0].username) {
     var newData = [];
     var userInfo = {};
     db('users').where('username', req.params.username).then(function(data) {
