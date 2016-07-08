@@ -130,8 +130,8 @@ router.get('/:username', function(req, res, next) {
         console.log('req.params.username is:\n', req.params.constructor, req.params);
         if (req.params.username) {
             console.log('req.params.username is true');
-            console.log('r.s.p[0] = ', req.session.passport[0]);
-            if (req.session.passport[0].user.username === req.params.username) {
+            console.log('r.s.p.user[0] = ', req.session.passport.user[0]);
+            if (req.session.passport.user[0].username === req.params.username) {
                 var newData = [];
                 var userInfo = {};
                 db('users').where('username', req.params.username).then(function(data) {
