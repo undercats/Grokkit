@@ -71,7 +71,7 @@ passport.use(new GoogleStrategy({
         passReqToCallback: true
     },
     function(request, accessToken, refreshToken, profile, cb) {
-        console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
+        // console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
         //simplify some data
         var emailAddress = profile.emails[0].value;
         var userName = emailAddress.substring(0, emailAddress.indexOf('@'));
@@ -87,7 +87,7 @@ passport.use(new GoogleStrategy({
             accessToken: accessToken,
             refreshToken: refreshToken
         };
-        console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
+        // console.log('OPTIMIZED PROFILE IS:\n', optimizedProfile, '\nEND OPTIMIZED PROFILE\n');
         //set profile to optimizedProfile
         profile = optimizedProfile;
         console.log('OUTGOING PROFILE IS:\n', profile, '\nEND OUTGOING PROFILE\n');
@@ -103,6 +103,7 @@ passport.use(new GoogleStrategy({
 
     }
 ));
+
 
 app.use('/oauth', oauth);
 
@@ -205,6 +206,7 @@ function findOrCreate(profile, cb) {
                 username: profile.username
             });
         }).then(function(data) {
+
             cb(null, data);
         }).catch(function(error) {
             console.log('\nNo User Found or Created\n', error);

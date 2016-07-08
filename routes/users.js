@@ -23,6 +23,8 @@ var check = new checkit({
 // if user exists then go to user home page
 // /username
 router.get('/:username', function(req, res, next) {
+    console.log('req.params =\n', req.params);
+    console.log('req.session =\n', req.session);
     if (req.params.username === req.session.passport.user.username) {
     var newData = [];
     var userInfo = {};
