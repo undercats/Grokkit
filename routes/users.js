@@ -187,7 +187,7 @@ router.get('/:username/topics/:topic_id', function(req, res, next) {
                         var allData ={
                           newData: newData,
                           err: null
-                        }
+                      };
                         res.render('rate', allData);
                     });
             }
@@ -293,7 +293,7 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
                             newData.err = null;
                             res.render('newgroup', newData);
                         });
-                })
+                });
         }).catch(function(err) {
             next(new Error(err));
         });
@@ -431,7 +431,7 @@ router.post('/:username/topics/:topic_id', function(req, res, next){
                         var allData = {
                           newData: newData,
                           err: err.errors
-                        }
+                      };
                         res.render('rate', allData);
                     });
 
@@ -489,7 +489,7 @@ router.post('/:username/topics/edit/:topic_id', function(req, res, next){
                         var allData = {
                           newData: newData,
                           err: err.errors
-                        }
+                      };
                         console.log(allData.err);
                         res.render('rate', allData);
                     });
@@ -543,7 +543,7 @@ router.post('/:username/groups/:group_id/newtopic', function(req, res, next) {
                 var allData ={
                   newData: newData,
                   err: err.errors
-                }
+              };
                 res.render('newtopic', allData);
             }).catch(function(err) {
                 next(new Error(err));

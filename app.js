@@ -73,6 +73,7 @@ passport.use(new GoogleStrategy({
     },
     function(req, accessToken, refreshToken, profile, cb) {
         // console.log('\nINCOMING PROFILE IS:\n', profile, '\nEND INCOMING PROFILE\n');
+        console.log('req.session.exist=', req.session.exist || 'false');
         //simplify some data
         var emailAddress = profile.emails[0].value;
         var userName = emailAddress.substring(0, emailAddress.indexOf('@'));
