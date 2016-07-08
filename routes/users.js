@@ -279,6 +279,7 @@ router.get('/:username/groups/edit/:group_id', function(req, res, next) {
         });
 });
 router.get('/logout', function(req, res, next) {
+    console.log('at logout, user is: ',user);
     req.session = null;
     res.redirect('/');
 });
