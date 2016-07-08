@@ -2,7 +2,7 @@
     <div class="col-md-12 content">
       <h3>
           <%=group.title%>
-          <span class="newgroup mobiletopic"><a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic">+ New Topic</a></span>
+          <p class="groupdesc"><%=group.description%></p>
       </h3>
         <ul class="nopad">
             <li>
@@ -33,17 +33,13 @@
           </div>
         </div>
 
-<!-- BELOW WILL ONLY DISPLAY ON A MOBILE PHONE -->
 
+        <div class="row">
+          <!-- <div class="row mobileonly"> -->
 
-        <div class="row mobileonly">
-
-              <button class="submit topic">+ New Topic</button>
+              <a href="/users/<%=userInfo.userName%>/groups/<%=group.groupId%>/newtopic"><button class="submit topic">+ New Topic</button></a>
 
         </div>
-
-
-<!-- ABOVE WILL ONLY DISPLAY ON A MOBILE PHONE -->
 
     </div>
 
